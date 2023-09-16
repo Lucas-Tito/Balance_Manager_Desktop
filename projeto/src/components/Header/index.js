@@ -1,6 +1,6 @@
 import React from "react";
 import totalIcon from "../../assets/totalIcon.png";
-import "./style.css";
+import "./../Header/style.css";
 
 export const Header = () => {
   return (

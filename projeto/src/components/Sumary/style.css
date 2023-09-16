@@ -1,0 +1,35 @@
+.containerSumary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: -10rem;
+  margin-left: 90px;
+  width: 80%;
+}
+
+.box {
+  background: var(--shape);
+  padding: 1.5rem 2rem;
+  color: var(--text-title);
+  border-radius: 0.25rem;
+}
+.boxTotal {
+  background: var(--green);
+  padding: 1.5rem 2rem;
+  color: #fff;
+  border-radius: 0.25rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.strong {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 3rem;
+  display: block;
+}
