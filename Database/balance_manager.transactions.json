@@ -1,0 +1,9 @@
+[{
+  "_id": {
+    "$oid": "650bbdafdf0ae72f02c1d0bd"
+  },
+  "description": "venda de pao de batata",
+  "value": 10.5,
+  "type": "income",
+  "categoria": "merenda"
+}]
