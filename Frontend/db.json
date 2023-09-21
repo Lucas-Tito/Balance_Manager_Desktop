@@ -1,0 +1,10 @@
+{
+  "transactions": [
+    {
+      "title": "Venda dee livros",
+      "amount": 1000,
+      "category": "Food",
+      "quantity": 1
+    }
+  ]
+}

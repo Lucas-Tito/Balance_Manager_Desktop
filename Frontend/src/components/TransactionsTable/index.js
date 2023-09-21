@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../TransactionsTable/style.css";
 export const TransactionsTable = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/transactions")
+      .then((response) => response.json())
+      .then((data) => setData(data));
+  }, [data]);
+
   return (
     <div className="containerTable">
       <table className="table">
@@ -14,20 +21,17 @@ export const TransactionsTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Venda de livros</td>
-            <td className="deposit">R$200,00</td>
-            <td>Comida</td>
-            <td>null</td>
-            <td>21/09/23</td>
-          </tr>
-          <tr>
-            <td>Aluguel</td>
-            <td className="withdraw">-R$300,00</td>
-            <td>Comida</td>
-            <td>null</td>
-            <td>10/09/23</td>
-          </tr>
+          {data.map((test) => {
+            return (
+              <tr>
+                <td>{test.title}</td>
+                <td className="deposit">R${test.amount}</td>
+                <td>{test.category}</td>
+                <td>{test.quantity}</td>
+                <td>21/09/23</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
