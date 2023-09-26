@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../TransactionsTable/style.css";
+
 export const TransactionsTable = () => {
   const [data, setData] = useState([]);
+
   useEffect(() => {
-    fetch("http://localhost:3000/transactions")
+    fetch("http://localhost:3001/transactions")
       .then((response) => response.json())
       .then((data) => setData(data));
   }, [data]);
@@ -21,11 +23,15 @@ export const TransactionsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((test) => {
+          {data.map((test,key) => {
             return (
-              <tr>
+              <tr key={key}>
                 <td>{test.title}</td>
-                <td className="deposit">R${test.amount}</td>
+                {test.type == "withdraw" ? (
+                  <td className={test.type}>-R${test.amount}</td>
+                ) : (
+                  <td className={test.type}>R${test.amount}</td>
+                )}
                 <td>{test.category}</td>
                 <td>{test.quantity}</td>
                 <td>21/09/23</td>

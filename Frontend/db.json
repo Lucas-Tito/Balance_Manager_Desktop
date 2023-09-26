@@ -1,10 +1,18 @@
 {
   "transactions": [
     {
-      "title": "Venda dee livros",
+      "title": "Venda de livros",
       "amount": 1000,
       "category": "Food",
-      "quantity": 1
+      "quantity": 1,
+      "type": "deposit"
+    },
+    {
+      "title": "Aluguel",
+      "amount": 400,
+      "category": "Home",
+      "quantity": null,
+      "type": "withdraw"
     }
   ]
 }
