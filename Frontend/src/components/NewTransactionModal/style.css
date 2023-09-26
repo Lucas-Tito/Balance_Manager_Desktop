@@ -1,0 +1,11 @@
+.containerModal {
+  color: white;
+}
+.form {
+  flex-direction: column;
+  margin-top: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

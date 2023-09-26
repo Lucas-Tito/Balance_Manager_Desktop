@@ -23,11 +23,11 @@ export const TransactionsTable = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((test,key) => {
+          {data.map((test, key) => {
             return (
               <tr key={key}>
                 <td>{test.title}</td>
-                {test.type == "withdraw" ? (
+                {test.type === "withdraw" ? (
                   <td className={test.type}>-R${test.amount}</td>
                 ) : (
                   <td className={test.type}>R${test.amount}</td>
