@@ -1,6 +1,6 @@
 # How to use
 
-The prototype was built using balsamiq wireframes to access the file you will need the software.
+The Low-Fidelity prototype was built using balsamiq wireframes.
 <br>
 
-However, the pdf shows the exact same thing, fell free to use it instead.
+The High-Fidelity prototype was built using Figma.
