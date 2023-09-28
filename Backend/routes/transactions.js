@@ -7,4 +7,6 @@ router.route("/transactions").post((req, res) =>transactionController.create(req
 
 router.route("/transactions").get((req, res) => transactionController.getAll(req, res))
 
+router.route("/transactions/:id").get((req, res)=> transactionController.get(req,res))
+
 module.exports = router
