@@ -9,4 +9,8 @@ router.route("/transactions").get((req, res) => transactionController.getAll(req
 
 router.route("/transactions/:id").get((req, res)=> transactionController.get(req,res))
 
+router.route("/transactions/:id").delete((req, res)=> transactionController.delete(req,res))
+
+router.route("/transactions/:id").put((req, res)=> transactionController.update(req,res))
+
 module.exports = router

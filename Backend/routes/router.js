@@ -3,9 +3,11 @@
 
 const router = require("express").Router()
 
-//Transaction router
-const transactionRouter = require("./transactions")
+//routers
+const transactionRouter = require("./transactionsRouter")
+const userRouter = require("./userRouter")
 
 router.use("/", transactionRouter)
+router.use("/", userRouter)
 
 module.exports = router;

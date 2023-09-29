@@ -3,7 +3,6 @@ const mongoose = require("mongoose")
 const {Schema} = mongoose
 
 const transactionSchema = new Schema({
-    id: String,
     description: String,
     value: Number,
     type: String,
@@ -11,7 +10,7 @@ const transactionSchema = new Schema({
 }, {timestamps:true})
 //timestamps saves the date that the object was created or updated
 
-const Transaction = mongoose.model("Transaction", transactionSchema)
+const transactionModel = mongoose.model("transactionModel", transactionSchema)
 module.exports = {
-    Transaction
+    transactionModel
 }
