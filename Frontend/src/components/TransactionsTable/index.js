@@ -5,7 +5,7 @@ export const TransactionsTable = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/transactions")
+    fetch("http://localhost:3000/api/transactions")
       .then((response) => response.json())
       .then((data) => setData(data));
   }, [data]);
@@ -18,7 +18,6 @@ export const TransactionsTable = () => {
             <th>Titulo</th>
             <th>Valor</th>
             <th>Categoria</th>
-            <th>Quantidade</th>
             <th>Data</th>
           </tr>
         </thead>
@@ -26,15 +25,14 @@ export const TransactionsTable = () => {
           {data.map((test, key) => {
             return (
               <tr key={key}>
-                <td>{test.title}</td>
-                {test.type === "withdraw" ? (
-                  <td className={test.type}>-R${test.amount}</td>
+                <td>{test.description}</td>
+                {test.type === "expenses" ? (
+                  <td className={test.type}>-R${test.value}</td>
                 ) : (
-                  <td className={test.type}>R${test.amount}</td>
+                  <td className={test.type}>R${test.value}</td>
                 )}
                 <td>{test.category}</td>
-                <td>{test.quantity}</td>
-                <td>21/09/23</td>
+                <td>{test.createdAt}</td>
               </tr>
             );
           })}

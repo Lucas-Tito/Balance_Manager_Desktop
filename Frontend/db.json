@@ -1,18 +1,19 @@
 {
   "transactions": [
     {
-      "title": "Venda de livros",
-      "amount": 1000,
-      "category": "Food",
-      "quantity": 1,
-      "type": "deposit"
+      "title": "andisu",
+      "value": 400,
+      "category": "Aluguel",
+      "type": "withdraw",
+      "date": "2023-10-02T14:50:03.265Z",
+      "id": 1
     },
     {
-      "title": "Aluguel",
-      "amount": 400,
-      "category": "Home",
-      "quantity": null,
-      "type": "withdraw"
+      "title": "asmdsam",
+      "value": 1000,
+      "category": "Aluguel",
+      "type": "withdraw",
+      "id": 2
     }
   ]
 }
