@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../TransactionsTable/style.css";
+import { TransactionsContext } from "../../TransactionContext";
 
 export const TransactionsTable = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:3000/api/transactions")
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }, [data]);
+  const data = useContext(TransactionsContext);
 
   return (
     <div className="containerTable">
@@ -27,12 +22,28 @@ export const TransactionsTable = () => {
               <tr key={key}>
                 <td>{test.description}</td>
                 {test.type === "expenses" ? (
-                  <td className={test.type}>-R${test.value}</td>
+                  <td className={test.type}>
+                    -
+                    {new Intl.NumberFormat("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    }).format(test.value)}
+                  </td>
                 ) : (
-                  <td className={test.type}>R${test.value}</td>
+                  <td className={test.type}>
+                    {new Intl.NumberFormat("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    }).format(test.value)}
+                  </td>
                 )}
-                <td>{test.category}</td>
-                <td>{test.createdAt}</td>
+                <td>{test.categoria}</td>
+                <td>
+                  {" "}
+                  {new Intl.DateTimeFormat("pt-BR").format(
+                    new Date(test.createdAt)
+                  )}
+                </td>
               </tr>
             );
           })}

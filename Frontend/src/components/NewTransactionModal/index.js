@@ -7,24 +7,20 @@ import closeIcon from "../../assets/closeIcon.svg";
 
 export const NewTransactionModal = ({ isOpen, onRequestClose }) => {
   const [type, setType] = useState("");
-  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [value, setValue] = useState(0);
-  const [category, setCategory] = useState("");
+  const [categoria, setCategoria] = useState("");
 
   function handleNewTransaction(e) {
     e.preventDefault();
     const data = {
-      title,
+      description,
       value,
-      category,
+      categoria,
       type,
-      date: () => {
-        const data1 = new Date();
-        return data1.getDate();
-      },
     };
 
-    fetch("http://localhost:3001/transactions", {
+    fetch("http://localhost:3000/api/transactions", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -52,8 +48,8 @@ export const NewTransactionModal = ({ isOpen, onRequestClose }) => {
           <input
             className="input"
             placeholder="Titulo"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
           />
           <input
             className="input"
@@ -65,25 +61,25 @@ export const NewTransactionModal = ({ isOpen, onRequestClose }) => {
             <button
               type="button"
               onClick={() => setType("income")}
-              className={type == "income" ? "active1" : ""}
+              className={type === "income" ? "active1" : ""}
             >
-              <img src={incomeIcon} />
+              <img src={incomeIcon} alt="income" />
               <span>Entrada</span>
             </button>
             <button
               type="button"
               onClick={() => setType("expenses")}
-              className={type == "expenses" ? "active2" : ""}
+              className={type === "expenses" ? "active2" : ""}
             >
-              <img src={expensesIcon} />
+              <img src={expensesIcon} alt="expenses" />
               <span>Saída</span>
             </button>
           </div>
           <input
             className="input"
             placeholder="Categoria"
-            value={category}
-            onChange={(event) => setCategory(event.target.value)}
+            value={categoria}
+            onChange={(event) => setCategoria(event.target.value)}
           />
           <button type="submit" onClick={handleNewTransaction}>
             Cadastrar

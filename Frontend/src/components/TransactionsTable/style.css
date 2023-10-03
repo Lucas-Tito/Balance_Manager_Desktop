@@ -25,9 +25,9 @@
 .table td:first-child {
   color: var(--text-title);
 }
-.table .withdraw {
+.table .expenses {
   color: red;
 }
-.table .deposit {
+.table .income {
   color: #35fc03;
 }
