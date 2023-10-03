@@ -5,5 +5,5 @@
   "description": "venda de pao de batata",
   "value": 10.5,
   "type": "income",
-  "categoria": "merenda"
+  "category": "merenda"
 }]

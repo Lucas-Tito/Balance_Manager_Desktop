@@ -8,7 +8,7 @@ const transactionController = {
                 description: req.body.description,
                 value: req.body.value,
                 type: req.body.type,
-                categoria: req.body.categoria
+                category: req.body.categoria
             }
             
             const response = await TransactionModel.create(transaction)
@@ -34,7 +34,7 @@ const transactionController = {
                 return
             }   
 
-            const deletedTransaction = await TransactionModel.findOneAndDelete(id)
+            const deletedTransaction = await TransactionModel.findByIdAndDelete(id)
             res.status(200).json({deletedTransaction, msg: "transcation deleted successfully"})
         } catch (error) {
             console.log(`error: ${error}`);
@@ -53,7 +53,7 @@ const transactionController = {
             description: req.body.description,
             value: req.body.value,
             type: req.body.type,
-            categoria: req.body.categoria
+            category: req.body.categoria
         }
         const updatedTransaction = await TransactionModel.findByIdAndUpdate(id, transaction)
 

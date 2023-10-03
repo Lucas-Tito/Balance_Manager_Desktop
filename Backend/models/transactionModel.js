@@ -6,7 +6,7 @@ const transactionSchema = new Schema({
     description: String,
     value: Number,
     type: String,
-    categoria: String
+    category: String
 }, {timestamps:true})
 //timestamps saves the date that the object was created or updated
 

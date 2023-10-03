@@ -6,8 +6,8 @@ const userController = {
         try {
             const user = {
                 email: req.body.email,
-                nome: req.body.nome,
-                senha: req.body.senha,
+                name: req.body.nome,
+                password: req.body.senha,
             }
             
             const response = await UserModel.create(user)
@@ -33,7 +33,7 @@ const userController = {
                 return
             }   
 
-            const deletedUser = await UserModel.findOneAndDelete(id)
+            const deletedUser = await UserModel.findByIdAndDelete(id)
             res.status(200).json({deletedUser, msg: "user deleted successfully"})
         } catch (error) {
             console.log(`error: ${error}`);
@@ -50,8 +50,8 @@ const userController = {
 
         const user = {
             email: req.body.email,
-            nome: req.body.nome,
-            senha: req.body.senha,
+            name: req.body.nome,
+            password: req.body.senha,
         }
         const updatedUser = await UserModel.findByIdAndUpdate(id, user)
 

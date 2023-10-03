@@ -4,8 +4,8 @@ const {Schema} = mongoose
 
 const userSchema = new Schema({
     email: String,
-    nome: String,
-    senha: String
+    name: String,
+    password: String
 }, {timestamps:true})
 //timestamps saves the date that the object was created or updated
 
