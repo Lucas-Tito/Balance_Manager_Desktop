@@ -5,7 +5,7 @@ import incomeIcon from "../../assets/incomeIcon.png";
 import expensesIcon from "../../assets/expensesIcon.png";
 import closeIcon from "../../assets/closeIcon.svg";
 
-export const NewTransactionModal = ({ isOpen, onRequestClose }) => {
+export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [value, setValue] = useState(0);
@@ -28,7 +28,13 @@ export const NewTransactionModal = ({ isOpen, onRequestClose }) => {
       body: JSON.stringify(data),
     })
       .then((resp) => resp.json())
-      .then(onRequestClose())
+      .then((data) => {
+        setDescription("");
+        setCategoria("");
+        setType("");
+        setValue(0);
+        onRequestClose();
+      })
       .catch((err) => console.log(err));
   }
 
@@ -43,7 +49,7 @@ export const NewTransactionModal = ({ isOpen, onRequestClose }) => {
         <img src={closeIcon} />
       </button>
       <div className="containerModal">
-        <h2>Cadastrar transação</h2>
+        <h2>{title}</h2>
         <form className="form">
           <input
             className="input"

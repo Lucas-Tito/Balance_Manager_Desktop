@@ -28,6 +28,7 @@ function App() {
       <Dashboard />
       <NewTransactionModal
         isOpen={isNewTransactionModalOpen}
+        title={"Cadastrar transação"}
         onRequestClose={handleCloseNewTransactionModalOpen}
       />
     </TransactionsProvider>

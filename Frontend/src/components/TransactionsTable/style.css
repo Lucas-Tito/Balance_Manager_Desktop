@@ -31,3 +31,8 @@
 .table .income {
   color: #35fc03;
 }
+
+.acoes {
+  display: flex;
+  gap: 5px;
+}
