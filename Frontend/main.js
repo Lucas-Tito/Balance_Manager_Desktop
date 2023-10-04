@@ -16,7 +16,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
   // e carregar o index.html da aplicação.
-  mainWindow.loadURL("http://localhost:3000");
+  mainWindow.loadURL("http://localhost:3001");
 
   // Emitido quando a janela é fechada.
   mainWindow.on("closed", function () {
