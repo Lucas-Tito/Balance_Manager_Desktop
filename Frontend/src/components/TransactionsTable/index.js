@@ -12,7 +12,7 @@ export const TransactionsTable = () => {
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [value, setValue] = useState(0);
-  const [categoria, setCategoria] = useState("");
+  const [category, setCategory] = useState("");
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
     useState(false);
   const [id, setId] = useState("62342chda");
@@ -24,18 +24,19 @@ export const TransactionsTable = () => {
       .then((response) => response.json())
       .then((data) => {
         setDescription(data.description);
-        setCategoria(data.categoria);
+        setCategory(data.category);
         setValue(data.value);
         setType(data.type);
         setId(data._id);
       });
   }
+
   function update() {
     const newTransaction = {
       description,
       value,
       type,
-      categoria,
+      category,
     };
     fetch(`http://localhost:3000/api/transactions/${id}`, {
       method: "PUT",
@@ -86,7 +87,7 @@ export const TransactionsTable = () => {
                       }).format(test.value)}
                     </td>
                   )}
-                  <td>{test.categoria}</td>
+                  <td>{test.category}</td>
                   <td>
                     {" "}
                     {new Intl.DateTimeFormat("pt-BR").format(
@@ -156,8 +157,8 @@ export const TransactionsTable = () => {
               <input
                 className="input"
                 placeholder="Categoria"
-                value={categoria}
-                onChange={(event) => setCategoria(event.target.value)}
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
               />
               <button type="submit" onClick={update}>
                 Salvar

@@ -9,14 +9,14 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [value, setValue] = useState(0);
-  const [categoria, setCategoria] = useState("");
+  const [category, setCategory] = useState("");
 
   function handleNewTransaction(e) {
     e.preventDefault();
     const data = {
       description,
       value,
-      categoria,
+      category,
       type,
     };
 
@@ -30,7 +30,7 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
       .then((resp) => resp.json())
       .then((data) => {
         setDescription("");
-        setCategoria("");
+        setCategory("");
         setType("");
         setValue(0);
         onRequestClose();
@@ -84,8 +84,8 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
           <input
             className="input"
             placeholder="Categoria"
-            value={categoria}
-            onChange={(event) => setCategoria(event.target.value)}
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
           />
           <button type="submit" onClick={handleNewTransaction}>
             Cadastrar
