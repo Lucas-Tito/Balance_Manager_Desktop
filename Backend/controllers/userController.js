@@ -6,8 +6,8 @@ const userController = {
         try {
             const user = {
                 email: req.body.email,
-                name: req.body.nome,
-                password: req.body.senha,
+                name: req.body.name,
+                password: req.body.password,
             }
             
             const response = await UserModel.create(user)
@@ -50,8 +50,8 @@ const userController = {
 
         const user = {
             email: req.body.email,
-            name: req.body.nome,
-            password: req.body.senha,
+            name: req.body.name,
+            password: req.body.password,
         }
         const updatedUser = await UserModel.findByIdAndUpdate(id, user)
 

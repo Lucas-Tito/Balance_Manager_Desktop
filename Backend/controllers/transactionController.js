@@ -8,7 +8,7 @@ const transactionController = {
                 description: req.body.description,
                 value: req.body.value,
                 type: req.body.type,
-                category: req.body.categoria
+                category: req.body.category
             }
             
             const response = await TransactionModel.create(transaction)
@@ -53,7 +53,7 @@ const transactionController = {
             description: req.body.description,
             value: req.body.value,
             type: req.body.type,
-            category: req.body.categoria
+            category: req.body.category
         }
         const updatedTransaction = await TransactionModel.findByIdAndUpdate(id, transaction)
 
@@ -64,7 +64,7 @@ const transactionController = {
         }   
         
         res.status(200).json({updatedTransaction, msg: "transcation updated successfully"})
-
+        console.log("hi");
         } catch (error) {
             console.log(`error: ${error}`);
         }
