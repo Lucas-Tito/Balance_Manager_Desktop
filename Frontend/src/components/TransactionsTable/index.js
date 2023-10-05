@@ -9,6 +9,7 @@ import closeIcon from "../../assets/closeIcon.svg";
 
 export const TransactionsTable = () => {
   const data = useContext(TransactionsContext);
+  
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [value, setValue] = useState(0);
