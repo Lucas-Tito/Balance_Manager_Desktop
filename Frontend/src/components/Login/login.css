@@ -85,3 +85,18 @@
     font-size: 0.7em;
     border: 0;
 }
+
+.createAccount{
+    display: flex;
+    gap: 6px;
+    margin-top: 50px;
+}
+
+.createAccount span{
+    color: #878787;
+    font-size: 0.9em;
+}
+
+.createAccount button{
+    border: 0;
+}

@@ -28,6 +28,11 @@ export default function LoginCard(){
                 </div>
 
                 <button className="submitButton">Login</button>
+
+                <div className="createAccount">
+                    <span>Não possui conta?</span>
+                    <button>Registrar</button>
+                </div>
             </div>
         </div>
     )
