@@ -48,6 +48,13 @@ export const TransactionsTable = () => {
       .then((response) => response.json())
       .then((data) => console.log(data));
   }
+  function deleteTransaction(id) {
+    fetch(`http://localhost:3000/api/transactions/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }
 
   function handleCloseNewTransactionModalOpen() {
     setIsNewTransactionModalOpen(false);
@@ -102,7 +109,9 @@ export const TransactionsTable = () => {
                     >
                       Editar
                     </button>
-                    <button>Deletar</button>
+                    <button onClick={() => deleteTransaction(test._id)}>
+                      Deletar
+                    </button>
                   </td>
                 </tr>
               );
