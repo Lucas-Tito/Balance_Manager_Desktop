@@ -1,6 +1,5 @@
 
 *{
-    background: white;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -8,8 +7,10 @@
 }
 
 #cardRoot{
+    background: white;
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 .card{
@@ -58,6 +59,9 @@
     font-size: 0.95em;
 }
 
+button{
+    background: none;
+}
 
 .bottomInputs{
     display: flex;

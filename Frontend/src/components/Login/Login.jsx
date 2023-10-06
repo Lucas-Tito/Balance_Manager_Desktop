@@ -1,4 +1,5 @@
 import "./login.css"
+import { Link } from "react-router-dom"
 
 export default function LoginCard(){
     return(
@@ -27,10 +28,11 @@ export default function LoginCard(){
                     <button>Forgot Password?</button>
                 </div>
 
-                <button className="submitButton">Login</button>
+                <Link to="/home" className="submitButton">Registrar</Link>
 
                 <div className="createAccount">
                     <span>Não possui conta?</span>
+                    
                     <button>Registrar</button>
                 </div>
             </div>
