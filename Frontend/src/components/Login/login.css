@@ -101,6 +101,9 @@ button{
     font-size: 0.9em;
 }
 
-.createAccount button{
+.createAccount .button{
     border: 0;
+    background: none;
+    color: black;
+    font-size: 0.9em;
 }

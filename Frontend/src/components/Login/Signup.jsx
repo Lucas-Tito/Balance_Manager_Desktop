@@ -1,12 +1,13 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./login.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
-export default function LoginCard(){
+export default function SignupCard() {
 
     const [formData, setformData] = useState({
         email: "",
-        password: ""
+        name: "",
+        password: "",
     })
 
     function handleFormChange(event) {
@@ -29,55 +30,60 @@ export default function LoginCard(){
         //Todo* inputs null verification and verification if user already exists
 
 
-        fetch("http://localhost:3000/api/users")
- 
+        fetch("http://localhost:3000/api/users", {
+            method: "POST",
+            headers: {  //indicates that the body contais json data
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(formData)
+        }).then((resp) => resp.json())
+            .catch((err) => console.log(err));
     }
 
-    return(
+    return (
         <div id="cardRoot">
             <div className="card">
                 <h2>Accueillir!</h2>
-                <h1>Login</h1>
+                <h1>Registro</h1>
 
                 <form onSubmit={handleSubmit}>
                     <div className="inputBox">
                         <span>Email</span>
-                        <input 
+                        <input
                             name="email"
                             type="email"
-                            value={formData.email} 
+                            value={formData.email}
                             onChange={handleFormChange}
                             placeholder="Seu email vai aqui"/>
                     </div>
-                    
+
+                    <div className="inputBox">
+                        <span>Nom</span>
+                        <input
+                            name="name"
+                            type="text"
+                            value={formData.name}
+                            onChange={handleFormChange}
+                            placeholder="Seu nome vai aqui"/>
+                    </div>
+
                     <div className="inputBox">
                         <span>Mot de passe</span>
-                        <input 
+                        <input
                             name="password"
                             type="password"
                             value={formData.password}
-                            onChange={handleFormChange} 
+                            onChange={handleFormChange}
                             placeholder="Sua senha vai aqui"/>
                     </div>
 
-                    <div className="bottomInputs">
-
-                        <div className="loginCheckbox">
-                            <input type="checkbox"/>
-                            <span>Remember me</span>
-                        </div>
-
-                        <button>Forgot Password?</button>
-                    </div>
-
-                    <button className="submitButton">Logar</button>
-
+                    <button className="submitButton">Registrar</button>
                 </form>
-        
+
                 <div className="createAccount">
                     <span>Não possui conta?</span>
-                    
-                    <Link to="/register" className="button">Registrar</Link>
+
+                    <Link to="/" className="button">Logar</Link>
                 </div>
             </div>
         </div>

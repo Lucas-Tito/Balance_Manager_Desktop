@@ -7,11 +7,16 @@ import reportWebVitals from "./reportWebVitals";
 
 //configuring router
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import SignupCard from "./components/Login/Signup";
 
 const router = createBrowserRouter([
   {
     path:"/",
     element:<Login/>
+  },
+  {
+    path:"/register",
+    element:<SignupCard/>
   },
   {
     path:"/home",
