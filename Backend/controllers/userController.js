@@ -89,6 +89,28 @@ const userController = {
     },
 
 
+    login: async(req, res)=>{
+        try {
+            const email = req.body.email
+            const password = req.body.password
+
+            const user = await UserModel.findOne({email:email})
+
+            if (!user) {
+                res.status(404).json({ msg: "user not found" })
+                return
+            }   
+            else if(password !== user.password){
+                res.status(404).json({ msg: "user not found" })
+                return
+            }
+                
+            res.status(200).json({ msg: "ok" })
+        } catch (error) {
+            console.log(`error: ${error}`);
+        }
+    },
+
 
     getAll: async(req, res) =>{
 

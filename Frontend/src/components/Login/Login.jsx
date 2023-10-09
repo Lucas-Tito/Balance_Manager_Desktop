@@ -2,7 +2,7 @@ import { useState } from "react"
 import "./login.css"
 import { Link } from "react-router-dom"
 
-export default function LoginCard(){
+export default function LoginCard() {
 
     const [formData, setformData] = useState({
         email: "",
@@ -29,11 +29,25 @@ export default function LoginCard(){
         //Todo* inputs null verification and verification if user already exists
 
 
-        fetch("http://localhost:3000/api/users")
- 
+        fetch("http://localhost:3000/api/users/login", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(formData)
+        }).then((response) => {
+            if (!response.ok) {
+                console.log(response);
+                alert("Usuário inexistente")
+            }
+            else
+                return response.json()
+        })
+            .then((data) => console.log(data))
+
     }
 
-    return(
+    return (
         <div id="cardRoot">
             <div className="card">
                 <h2>Accueillir!</h2>
@@ -42,28 +56,28 @@ export default function LoginCard(){
                 <form onSubmit={handleSubmit}>
                     <div className="inputBox">
                         <span>Email</span>
-                        <input 
+                        <input
                             name="email"
                             type="email"
-                            value={formData.email} 
+                            value={formData.email}
                             onChange={handleFormChange}
-                            placeholder="Seu email vai aqui"/>
+                            placeholder="Seu email vai aqui" />
                     </div>
-                    
+
                     <div className="inputBox">
                         <span>Mot de passe</span>
-                        <input 
+                        <input
                             name="password"
                             type="password"
                             value={formData.password}
-                            onChange={handleFormChange} 
-                            placeholder="Sua senha vai aqui"/>
+                            onChange={handleFormChange}
+                            placeholder="Sua senha vai aqui" />
                     </div>
 
                     <div className="bottomInputs">
 
                         <div className="loginCheckbox">
-                            <input type="checkbox"/>
+                            <input type="checkbox" />
                             <span>Remember me</span>
                         </div>
 
@@ -73,10 +87,10 @@ export default function LoginCard(){
                     <button className="submitButton">Logar</button>
 
                 </form>
-        
+
                 <div className="createAccount">
                     <span>Não possui conta?</span>
-                    
+
                     <Link to="/register" className="button">Registrar</Link>
                 </div>
             </div>

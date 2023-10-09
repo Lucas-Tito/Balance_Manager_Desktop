@@ -13,4 +13,7 @@ router.route("/users/:id").delete((req, res)=> userController.delete(req,res))
 
 router.route("/users/:id").put((req, res)=> userController.update(req,res))
 
+router.route("/users/login").post((req, res)=> userController.login(req,res))
+
+
 module.exports = router
