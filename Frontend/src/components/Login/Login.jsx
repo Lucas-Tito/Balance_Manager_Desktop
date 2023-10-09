@@ -1,6 +1,6 @@
 import { useState } from "react"
 import "./login.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export default function LoginCard() {
 
@@ -22,6 +22,7 @@ export default function LoginCard() {
         })
     }
 
+    const navigate = useNavigate()
     function handleSubmit(event) {
         //cancel the default submit event that refreshes the browser
         event.preventDefault()
@@ -41,10 +42,8 @@ export default function LoginCard() {
                 alert("Usuário inexistente")
             }
             else
-                return response.json()
+                navigate("/home")
         })
-            .then((data) => console.log(data))
-
     }
 
     return (
@@ -59,6 +58,7 @@ export default function LoginCard() {
                         <input
                             name="email"
                             type="email"
+                            required
                             value={formData.email}
                             onChange={handleFormChange}
                             placeholder="Seu email vai aqui" />
@@ -69,6 +69,7 @@ export default function LoginCard() {
                         <input
                             name="password"
                             type="password"
+                            required
                             value={formData.password}
                             onChange={handleFormChange}
                             placeholder="Sua senha vai aqui" />

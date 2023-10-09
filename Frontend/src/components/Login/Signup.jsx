@@ -52,6 +52,7 @@ export default function SignupCard() {
                         <input
                             name="email"
                             type="email"
+                            required
                             value={formData.email}
                             onChange={handleFormChange}
                             placeholder="Seu email vai aqui"/>
@@ -62,6 +63,7 @@ export default function SignupCard() {
                         <input
                             name="name"
                             type="text"
+                            required
                             value={formData.name}
                             onChange={handleFormChange}
                             placeholder="Seu nome vai aqui"/>
@@ -72,6 +74,7 @@ export default function SignupCard() {
                         <input
                             name="password"
                             type="password"
+                            required
                             value={formData.password}
                             onChange={handleFormChange}
                             placeholder="Sua senha vai aqui"/>
