@@ -9,6 +9,7 @@ import {
   TransactionsContext,
   TransactionsProvider,
 } from "./TransactionContext";
+import { useLocation } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
@@ -21,6 +22,14 @@ function App() {
   }
   function handleCloseNewTransactionModalOpen() {
     setIsNewTransactionModalOpen(false);
+  }
+
+  const location = useLocation()
+  let userid = ''
+
+  if(location.state){
+      userid = location.state.userid
+      console.log(userid);
   }
   return (
     <TransactionsProvider>

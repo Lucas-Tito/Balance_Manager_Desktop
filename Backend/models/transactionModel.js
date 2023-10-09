@@ -6,7 +6,11 @@ const transactionSchema = new Schema({
     description: String,
     value: Number,
     type: String,
-    category: String
+    category: String,
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "userModel"
+    }
 }, {timestamps:true})
 //timestamps saves the date that the object was created or updated
 

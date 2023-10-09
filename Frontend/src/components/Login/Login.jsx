@@ -42,7 +42,7 @@ export default function LoginCard() {
                 alert("Usuário inexistente")
             }
             else
-                navigate("/home")
+                navigate("/home", { state: { userid: "Projeto criado com sucesso!" } })
         })
     }
 

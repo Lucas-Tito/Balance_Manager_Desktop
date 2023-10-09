@@ -1,4 +1,5 @@
 const { transactionModel: TransactionModel } = require("../models/transactionModel")
+const mongoose = require("mongoose")
 
 const transactionController = {
 
@@ -8,7 +9,8 @@ const transactionController = {
                 description: req.body.description,
                 value: req.body.value,
                 type: req.body.type,
-                category: req.body.category
+                category: req.body.category,
+                user: new mongoose.Types.ObjectId(req.body.user)
             }
             
             const response = await TransactionModel.create(transaction)
@@ -93,11 +95,11 @@ const transactionController = {
 
 
     getAll: async(req, res) =>{
-
         try {
-            const transaction = await TransactionModel.find() 
+            const user = req.params.user
+            const transactions = await TransactionModel.find({user:user})
 
-            res.json(transaction)
+            res.json(transactions)
 
         } catch (error) {
             console.log(`error: ${error}`);
