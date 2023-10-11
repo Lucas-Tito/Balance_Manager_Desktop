@@ -84,7 +84,7 @@ export default function SignupCard() {
                 </form>
 
                 <div className="createAccount">
-                    <span>Não possui conta?</span>
+                    <span>Já possui conta?</span>
 
                     <Link to="/" className="button">Logar</Link>
                 </div>
