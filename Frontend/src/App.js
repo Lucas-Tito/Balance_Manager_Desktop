@@ -24,15 +24,14 @@ function App() {
     setIsNewTransactionModalOpen(false);
   }
 
-  const location = useLocation()
-  let userid = ''
+  const location = useLocation();
+  let userid = "";
 
-  if(location.state){
-      userid = location.state.userid
-      console.log(userid);
+  if (location.state) {
+    userid = location.state.userid;
   }
   return (
-    <TransactionsProvider>
+    <TransactionsProvider user={userid}>
       <Header openModal={handleOpenNewTransactionModalOpen} />
       <Dashboard />
       <NewTransactionModal

@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Modal from "react-modal";
 import "./style.css";
 import incomeIcon from "../../assets/incomeIcon.png";
 import expensesIcon from "../../assets/expensesIcon.png";
 import closeIcon from "../../assets/closeIcon.svg";
+import { userContext } from "../../TransactionContext";
 
 export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
   const [value, setValue] = useState(0);
   const [category, setCategory] = useState("");
+  const user = useContext(userContext);
 
   function handleNewTransaction(e) {
     e.preventDefault();
@@ -18,6 +20,7 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
       value,
       category,
       type,
+      user,
     };
 
     fetch("http://localhost:3000/api/transactions", {

@@ -1,18 +1,19 @@
 import { createContext, useEffect, useState } from "react";
 export const TransactionsContext = createContext({});
+export const userContext = createContext("");
 
-export function TransactionsProvider({ children,test }) {
+export function TransactionsProvider({ children, user }) {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/transactions/user/65209e354d0e12e478ac7b90")
+    fetch(`http://localhost:3000/api/transactions/user/${user}`)
       .then((response) => response.json())
       .then((data) => setTransactions(data));
   }, [transactions]);
 
   return (
     <TransactionsContext.Provider value={transactions}>
-      {children}
+      <userContext.Provider value={user}>{children}</userContext.Provider>
     </TransactionsContext.Provider>
   );
 }
