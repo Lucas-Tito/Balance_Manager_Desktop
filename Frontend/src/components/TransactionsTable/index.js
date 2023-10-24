@@ -48,6 +48,8 @@ export const TransactionsTable = () => {
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
+
+    handleCloseNewTransactionModalOpen();
   }
   function deleteTransaction(id) {
     fetch(`http://localhost:3000/api/transactions/${id}`, {
@@ -170,7 +172,7 @@ export const TransactionsTable = () => {
                 value={category}
                 onChange={(event) => setCategory(event.target.value)}
               />
-              <button type="submit" onClick={update}>
+              <button type="button" className="buttonTest" onClick={update}>
                 Salvar
               </button>
             </form>

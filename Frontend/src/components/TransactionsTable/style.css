@@ -36,3 +36,21 @@
   display: flex;
   gap: 5px;
 }
+
+.buttonTest {
+  width: 98%;
+  padding: 0 1.5rem;
+  height: 4rem;
+  background: var(--green);
+  color: #fff;
+  border-radius: 0.25rem;
+  border: 0;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 600;
+}
+.buttonTest :hover {
+  filter: brightness(0.9);
+}
