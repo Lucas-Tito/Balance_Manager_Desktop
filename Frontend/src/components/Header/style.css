@@ -12,6 +12,12 @@
   justify-content: space-between;
 }
 
+.menu_icon{
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
 .btn1 {
   font-size: 1rem;
   color: #fff;
