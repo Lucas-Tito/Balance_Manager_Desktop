@@ -12,7 +12,7 @@
   justify-content: space-between;
 }
 
-.menu_icon{
+.menu_icon {
   height: 50px;
   width: 50px;
   cursor: pointer;
@@ -32,4 +32,26 @@
 
 .btn1:hover {
   filter: brightness(0.9);
+}
+.search {
+  position: absolute;
+  left: 900px;
+  top: 20px;
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.img-search {
+  background-color: antiquewhite;
+  position: absolute;
+  left: 1210px;
+  top: 24px;
+  padding: 5px;
+  border-radius: 40%;
+  transition: 0.2s;
+}
+
+.img-search:hover {
+  filter: brightness(0.7);
 }
