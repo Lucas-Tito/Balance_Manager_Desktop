@@ -51,6 +51,16 @@
   transition: 0.2s;
   font-weight: 600;
 }
-.buttonTest :hover {
+.buttonTest:hover {
   filter: brightness(0.9);
+}
+.btn-acoes {
+  padding: 2px;
+  cursor: pointer;
+  background-color: gray;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+.btn-acoes:hover {
+  filter: brightness(0.7);
 }

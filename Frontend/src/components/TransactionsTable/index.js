@@ -106,13 +106,17 @@ export const TransactionsTable = () => {
                   </td>
                   <td className="acoes">
                     <button
+                      className="btn-acoes"
                       onClick={() =>
                         handleOpenNewTransactionModalOpen(test._id)
                       }
                     >
                       Editar
                     </button>
-                    <button onClick={() => deleteTransaction(test._id)}>
+                    <button
+                      className="btn-acoes"
+                      onClick={() => deleteTransaction(test._id)}
+                    >
                       Deletar
                     </button>
                   </td>
