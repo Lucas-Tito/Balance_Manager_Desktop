@@ -50,7 +50,7 @@ export const Sumary = () => {
       <div className="containerSumary">
             {/* Onboarding component */}
         <Steps
-          enabled={true}
+          enabled={false}
           steps={steps}
           initialStep={0}
           onExit={onExit}
