@@ -9,9 +9,16 @@ const userController = {
         password: req.body.password,
       };
 
+      const user_search = await UserModel.findOne({ email: user.email });
+
+      if (user_search) {
+        res.status(404).json({ msg: "exists" });
+        return;
+      }
+
       const response = await UserModel.create(user);
 
-      res.status(201).json({ response, msg: "User created successfully" });
+      res.status(201).json({ response, msg: "success" });
     } catch (error) {
       console.log(`error: ${error}`);
     }

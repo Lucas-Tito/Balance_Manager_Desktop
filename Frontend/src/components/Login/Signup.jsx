@@ -23,6 +23,7 @@ export default function SignupCard() {
         })
     }
 
+    const navigate = useNavigate();
     function handleSubmit(event) {
         //cancel the default submit event that refreshes the browser
         event.preventDefault()
@@ -35,8 +36,21 @@ export default function SignupCard() {
             headers: {  //indicates that the body contais json data
                 "Content-type": "application/json",
             },
+            //sends the data to the API process
             body: JSON.stringify(formData)
+
+            //awaits the response from the API 
         }).then((resp) => resp.json())
+           .then((data)=>{
+                const msg = data.msg
+                if(msg == "exists"){
+                    alert("Usuário já existe!")
+                }
+                else if(msg == "success"){
+                    alert("Usuário registrado com sucesso!")
+                    navigate("/")
+                }
+           })
             .catch((err) => console.log(err));
     }
 

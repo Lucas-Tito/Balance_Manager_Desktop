@@ -1,4 +1,4 @@
-# Software para controle de gastos 📱
+# Software para controle de gastos 💰
 
 <h4 align="center">
   The development of this app is on going and it still in early stages.
