@@ -4,9 +4,12 @@ import "./../Header/style.css";
 import Modal from "react-modal";
 import searchIcon from "../../assets/search.png";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { userContext } from "../../TransactionContext";
 
 export const Header = ({ openModal }) => {
   const navigate = useNavigate();
+  const user = useContext(userContext);
 
   return (
     <>
@@ -14,7 +17,7 @@ export const Header = ({ openModal }) => {
         <input className="search" placeholder="search"></input>
         <img
           style={{ cursor: "pointer" }}
-          onClick={() => navigate("/chart")}
+          onClick={() => navigate("/chart", { state: { userid: user } })}
           src={searchIcon}
           width="34px"
           height="34px"

@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Chart, RadialLinearScale, ArcElement, Title, Tooltip } from "chart.js";
 import { PolarArea } from "react-chartjs-2";
+import { TransactionsContext } from "../../TransactionContext";
+import { useLocation } from "react-router-dom";
 Chart.register(RadialLinearScale, ArcElement, Title, Tooltip);
 
 const Charts = () => {
+  const [transactions, setTransactions] = useState();
+  const location = useLocation();
+  let userid = "";
+
+  if (location.state) {
+    userid = location.state.userid;
+  }
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/transactions/user/${userid}`)
+      .then((response) => response.json())
+      .then((data) => setTransactions(data));
+  }, [transactions]);
+
   let data = {
-    labels: ["Mercado", "Casa", "Aluguel", "Teste", "Amongus", "Jogos"],
+    labels: transactions?.map((data) => data.category),
     datasets: [
       {
         label: "#",
-        data: [1, 7, 8, 4, 5, 10],
+        data: transactions?.map((data) => data.value),
         backgroundColor: [
           "rgba(68, 138, 255, 0.85)",
           "rgba(21, 101, 192, 0.85)",
@@ -29,10 +45,10 @@ const Charts = () => {
     responsive: true,
     scales: {
       r: {
-        suggestedMin: 0,
+        suggestedMin: 1,
         suggestedMax: 10,
         grid: {
-          circular: true,
+          display: true,
           color: "#FFFF",
         },
         angleLines: {
@@ -49,9 +65,9 @@ const Charts = () => {
           centerPointLabels: true,
         },
         ticks: {
-          stepSize: 2,
+          stepSize: 100,
           font: {
-            size: 19,
+            size: 20,
           },
           color: "#FFFF",
         },
