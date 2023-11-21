@@ -104,7 +104,27 @@ const transactionController = {
         } catch (error) {
             console.log(`error: ${error}`);
         }
-    }
+    },
+
+
+    searchByDescription: async(req, res)=>{
+        try {
+            const userToSearch = req.params.user
+            const descriptionToSearch = req.query.desc
+            //regex is used to achieve the result of an LIKE operator
+            const transaction = await TransactionModel.find({description: {$regex: descriptionToSearch}, user:userToSearch})
+
+            //checks if id is null
+            if (!transaction) {
+                res.status(404).json({ msg: "didn't found any transactions" })
+                return
+            }   
+
+            res.json(transaction)
+        } catch (error) {
+            console.log(`error: ${error}`);
+        }
+    },
 
 }
 
