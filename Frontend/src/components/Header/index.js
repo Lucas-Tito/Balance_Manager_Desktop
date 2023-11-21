@@ -14,16 +14,34 @@ export const Header = ({ openModal }) => {
   return (
     <>
       <div className="container">
-        <input className="search" placeholder="search"></input>
-        <img
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate("/chart", { state: { userid: user } })}
-          src={searchIcon}
-          width="34px"
-          height="34px"
-          className="img-search"
-        />
-        <img src={menu_icon} alt="logo" className="menu_icon" />
+
+        <div className="searchContainer">
+          <input className="search" placeholder="search"></input>
+
+          <img
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/chart", { state: { userid: user } })}
+            src={searchIcon}
+            width="34px"
+            height="34px"
+            className="img-search"
+          />
+        </div>
+
+
+        <div className="dropdown">
+          <button class="dropbtn">
+            <img src={menu_icon} alt="logo" className="menu_icon" />
+            <i className="fa fa-caret-down"></i>
+          </button>
+
+          <div className="dropdown-content">
+            <a href="#">Relatório</a>
+            <a href="#">Sair</a>
+          </div>
+        </div> 
+        
+
         <div className="content">
           <img src={totalIcon} alt="logo" />
           <button className="btn1" onClick={openModal}>
