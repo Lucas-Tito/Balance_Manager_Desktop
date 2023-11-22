@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import "../TransactionsTable/style.css";
+import "./style.css";
 import Modal from "react-modal";
 
-import { TransactionsContext, userContext } from "../../TransactionContext";
-import incomeIcon from "../../assets/incomeIcon.png";
-import expensesIcon from "../../assets/expensesIcon.png";
-import closeIcon from "../../assets/closeIcon.svg";
+import { TransactionsContext, userContext } from "../../../TransactionContext";
+import incomeIcon from "../../../assets/incomeIcon.png";
+import expensesIcon from "../../../assets/expensesIcon.png";
+import closeIcon from "../../../assets/closeIcon.svg";
 
 export const TransactionsTable = () => {
   const data = useContext(TransactionsContext);

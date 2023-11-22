@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import "./style.css";
-import incomeIcon from "../../assets/incomeIcon.png";
-import expensesIcon from "../../assets/expensesIcon.png";
-import totalIcon from "../../assets/totalIcon.png";
-import { TransactionsContext } from "../../TransactionContext";
+import incomeIcon from "../../../assets/incomeIcon.png";
+import expensesIcon from "../../../assets/expensesIcon.png";
+import totalIcon from "../../../assets/totalIcon.png";
+import { TransactionsContext } from "../../../TransactionContext";
 import 'intro.js/introjs.css';
 import { Steps } from 'intro.js-react';
 import {useState} from 'react';
