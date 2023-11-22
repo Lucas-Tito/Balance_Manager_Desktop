@@ -33,8 +33,16 @@
 .btn1:hover {
   filter: brightness(0.9);
 }
-.search {
-  position: absolute;
+
+.searchContainer{
+  display: flex;
+  flex-direction: row;
+  width: fit-content;  
+  align-items: center;
+  gap: 8px;
+}
+
+.searchInput {
   left: 900px;
   top: 20px;
   width: 300px;
@@ -42,9 +50,8 @@
   border-radius: 10px;
 }
 
-.img-search {
-  background-color: antiquewhite;
-  position: absolute;
+.searchBtn {
+  background-color: white;
   left: 1210px;
   top: 24px;
   padding: 5px;
