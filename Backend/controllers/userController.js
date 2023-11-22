@@ -97,7 +97,7 @@ const userController = {
         return;
       }
 
-      res.status(200).json({ msg: "ok", user: String(user._id) });
+      res.status(200).json({ msg: "ok", user: user._id.toString() });
     } catch (error) {
       console.log(`error: ${error}`);
     }
