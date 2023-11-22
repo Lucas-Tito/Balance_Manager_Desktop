@@ -14,5 +14,7 @@ router.route("/transactions/:id").delete((req, res)=> transactionController.dele
 router.route("/transactions/:id").put((req, res)=> transactionController.update(req,res))
 
 router.route("/transactions/searchbyDesc/:user").get((req, res)=> transactionController.searchByDescription(req,res))
+router.route("/transactions/searchbyCate/:user").get((req, res)=> transactionController.searchByCategory(req,res))
+router.route("/transactions/searchbyMonth/:user").get((req, res)=> transactionController.searchByMonth(req,res))
 
 module.exports = router

@@ -126,6 +126,47 @@ const transactionController = {
         }
     },
 
+    searchByCategory: async(req, res)=>{
+        try {
+            const userToSearch = req.params.user
+            const categoryToSearch = req.query.cate
+            //regex is used to achieve the result of an LIKE operator
+            const transaction = await TransactionModel.find({category: {$regex: categoryToSearch}, user:userToSearch})
+
+            //checks if id is null
+            if (!transaction) {
+                res.status(404).json({ msg: "didn't found any transactions" })
+                return
+            }   
+
+            res.json(transaction)
+        } catch (error) {
+            console.log(`error: ${error}`);
+        }
+    },
+
+    searchByMonth: async(req, res)=>{
+        try {
+            const userToSearch = req.params.user
+            //gets month and year from query in the format (Y-M)
+            const monthNYearToSearch = req.query.monthYear
+            
+            //search for a transction that has a date on the specified month and year
+            const transaction = await TransactionModel.find({createdAt: {$gte: new Date(`${monthNYearToSearch}-1`), 
+            $lt: new Date(`${monthNYearToSearch}-31`)}, user:userToSearch})
+
+            //checks if id is null
+            if (!transaction) {
+                res.status(404).json({ msg: "didn't found any transactions" })
+                return
+            }   
+
+            res.json(transaction)
+        } catch (error) {
+            console.log(`error: ${error}`);
+        }
+    },
+
 }
 
 
