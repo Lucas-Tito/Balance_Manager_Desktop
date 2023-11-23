@@ -1,11 +1,12 @@
 import totalIcon from "../../assets/totalIcon.png";
 import menu_icon from "../../assets/menu_icon.svg";
+import closeIcon from "../../assets/closeIcon.svg";
 import "./../Header/style.css";
 import searchIcon from "../../assets/search.png";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { userContext } from "../../TransactionContext";
-import { useHistory } from "react-router-dom";
+import Modal from "react-modal";
 
 export const Header = ({ openModal }) => {
   const navigate = useNavigate();
