@@ -5,7 +5,7 @@
 </h4>  
   
 ### How to run (Tito)
-in addition to basic react procedures, you have to run the following command to run this version of the code:
+in addition to basic react procedures, you have to run the following commands to run this version of the code:
 <br>
 $ npm install intro.js-react
 <br>
