@@ -112,6 +112,26 @@ const userController = {
       console.log(`error: ${error}`);
     }
   },
+
+
+  getAllUserCategories: async(req, res) =>{
+    try {
+        const id = req.params.id;
+        const categories = await UserModel.findById(id, 'custom_categories');
+
+        //checks if id is null
+        if (!categories) {
+          res.status(404).json({ msg: "didn't found any users" })
+          return
+        }   
+        
+        res.json(categories)
+
+    } catch (error) {
+        console.log(`error: ${error}`);
+    }
+},
+
 };
 
 module.exports = userController;

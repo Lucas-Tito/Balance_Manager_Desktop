@@ -150,7 +150,7 @@ const transactionController = {
             const userToSearch = req.params.user
             //gets month and year from query in the format (Y-M)
             const monthNYearToSearch = req.query.monthYear
-            
+
             //search for a transction that has a date on the specified month and year
             const transaction = await TransactionModel.find({createdAt: {$gte: new Date(`${monthNYearToSearch}-1`), 
             $lt: new Date(`${monthNYearToSearch}-31`)}, user:userToSearch})
