@@ -3,8 +3,8 @@ import menu_icon from "../../assets/menu_icon.svg";
 import "./../Header/style.css";
 import searchIcon from "../../assets/search.png";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import { userContext } from "../../TransactionContext";
+import { useContext, useEffect, useState } from "react";
+import { TransactionsContext, userContext } from "../../TransactionContext";
 import { useHistory } from "react-router-dom";
 
 export const Header = ({ openModal }) => {
@@ -62,6 +62,9 @@ export const Header = ({ openModal }) => {
 
 export const SimpleHeader = () => {
   const navigate = useNavigate();
+  const user = useContext(userContext);
+  const [categorias, setCategorias] = useState();
+
   const meses = [
     "Janeiro",
     "Fevereiro",
@@ -77,15 +80,36 @@ export const SimpleHeader = () => {
     "Dezembro",
   ];
 
+  useEffect(() => {
+    if (!categorias) {
+      // Verifica se categorias é undefined
+      fetch(
+        `http://localhost:3000/api/users/categories/65476e639189e58920cdda91`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setCategorias(data.custom_categories);
+        })
+        .catch((error) => {
+          console.error("Erro ao obter categorias:", error);
+        });
+    }
+  }, []);
+
   const [mesSelecionado, setMesSelecionado] = useState("");
 
-  const handleChange = (event) => {
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
+
+  const handleChangeMes = (event) => {
     setMesSelecionado(event.target.value);
+  };
+  const handleChangeCategoria = (event) => {
+    setCategoriaSelecionada(event.target.value);
   };
   return (
     <>
       <div className="dropdown">
-        <button class="dropbtn">
+        <button className="dropbtn">
           <img src={menu_icon} alt="logo" className="menu_icon" />
           <i className="fa fa-caret-down"></i>
         </button>
@@ -106,7 +130,7 @@ export const SimpleHeader = () => {
             <label htmlFor="mes" style={{ color: "white" }}>
               Filtrar por mês:
             </label>
-            <select id="mes" value={mesSelecionado} onChange={handleChange}>
+            <select id="mes" value={mesSelecionado} onChange={handleChangeMes}>
               <option value="">Selecione um mês</option>
               {meses.map((mes, index) => (
                 <option key={index} value={mes}>
@@ -121,6 +145,29 @@ export const SimpleHeader = () => {
                 {/* Adicione aqui a lógica para exibir os dados filtrados */}
               </div>
             )}
+          </div>
+          <div className="filtro-por-categoria">
+            <label htmlFor="categoria" style={{ color: "white" }}>
+              Filtrar por categoria:
+            </label>
+            <select
+              id="categoria"
+              value={categoriaSelecionada}
+              onChange={handleChangeCategoria}
+            >
+              <option value="">Selecione uma categoria</option>
+              {categorias && categorias.length > 0 ? (
+                categorias.map((categoria, index) => (
+                  <option key={index} value={categoria}>
+                    {categoria}
+                  </option>
+                ))
+              ) : (
+                <option value="" disabled>
+                  Nenhuma categoria encontrada
+                </option>
+              )}
+            </select>
           </div>
         </div>
       </div>
