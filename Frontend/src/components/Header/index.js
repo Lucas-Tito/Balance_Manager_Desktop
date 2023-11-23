@@ -1,11 +1,12 @@
 import totalIcon from "../../assets/totalIcon.png";
 import menu_icon from "../../assets/menu_icon.svg";
+import closeIcon from "../../assets/closeIcon.svg";
 import "./../Header/style.css";
 import searchIcon from "../../assets/search.png";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { TransactionsContext, userContext } from "../../TransactionContext";
-import { useHistory } from "react-router-dom";
+import { userContext } from "../../TransactionContext";
+import Modal from "react-modal";
 
 export const Header = ({ openModal }) => {
   const navigate = useNavigate();
@@ -62,8 +63,11 @@ export const Header = ({ openModal }) => {
 
 export const SimpleHeader = () => {
   const navigate = useNavigate();
-  const user = useContext(userContext);
-  const [categorias, setCategorias] = useState();
+  //const user = useContext(userContext);
+  const [categorias, setCategorias] = useState(); //É o array de custom cateogories
+  const [category, setCategory] = useState(""); //É para criar nova custom categorie
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
+    useState(false); // vai fechar e abrir o popup
 
   const meses = [
     "Janeiro",
@@ -98,13 +102,19 @@ export const SimpleHeader = () => {
 
   const [mesSelecionado, setMesSelecionado] = useState("");
 
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
-
   const handleChangeMes = (event) => {
     setMesSelecionado(event.target.value);
   };
-  const handleChangeCategoria = (event) => {
-    setCategoriaSelecionada(event.target.value);
+  const handleChangeCategoria = (event) => {};
+  function handleOpenNewTransactionModalOpen() {
+    setIsNewTransactionModalOpen(true);
+  }
+  function handleCloseNewTransactionModalOpen() {
+    setIsNewTransactionModalOpen(false);
+  }
+  const teste = () => {
+    console.log(category);
+    handleCloseNewTransactionModalOpen();
   };
   return (
     <>
@@ -150,11 +160,7 @@ export const SimpleHeader = () => {
             <label htmlFor="categoria" style={{ color: "white" }}>
               Filtrar por categoria:
             </label>
-            <select
-              id="categoria"
-              value={categoriaSelecionada}
-              onChange={handleChangeCategoria}
-            >
+            <select id="categoria" value={""} onChange={handleChangeCategoria}>
               <option value="">Selecione uma categoria</option>
               {categorias && categorias.length > 0 ? (
                 categorias.map((categoria, index) => (
@@ -169,8 +175,38 @@ export const SimpleHeader = () => {
               )}
             </select>
           </div>
+          <button className="btn1" onClick={handleOpenNewTransactionModalOpen}>
+            Nova categoria
+          </button>
         </div>
       </div>
+      <Modal
+        isOpen={isNewTransactionModalOpen}
+        onRequestClose={handleCloseNewTransactionModalOpen}
+        overlayClassName="react-modal-overlay"
+        className="react-modal-content"
+      >
+        <button
+          onClick={handleCloseNewTransactionModalOpen}
+          className="react-modal-close"
+        >
+          <img src={closeIcon} />
+        </button>
+        <div className="containerModal">
+          <h2>Criar categoria</h2>
+          <form className="form">
+            <input
+              className="input"
+              placeholder="Categoria"
+              value={category}
+              onChange={(event) => setCategory(event.target.value)}
+            />
+            <button type="button" className="buttonTest" onClick={teste}>
+              Salvar
+            </button>
+          </form>
+        </div>
+      </Modal>
     </>
   );
 };
