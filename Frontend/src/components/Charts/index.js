@@ -3,7 +3,7 @@ import { Chart, RadialLinearScale, ArcElement, Title, Tooltip } from "chart.js";
 import { PolarArea } from "react-chartjs-2";
 import { TransactionsContext } from "../../TransactionContext";
 import { useLocation } from "react-router-dom";
-import { SimpleHeader } from "../Header";
+import { ChartHeader } from "../Header";
 Chart.register(RadialLinearScale, ArcElement, Title, Tooltip);
 
 const Charts = () => {
@@ -78,7 +78,7 @@ const Charts = () => {
 
   return (
     <>
-      <SimpleHeader />
+      <ChartHeader />
       <div style={{ width: 750, height: 750 }}>
         <PolarArea data={data} options={options} />
       </div>

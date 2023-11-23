@@ -9,6 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignupCard from "./components/Login/Signup";
 import Charts from "./components/Charts";
+import { Search } from "./components/Search/Search";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
     path: "/chart",
     element: <Charts />,
   },
+  {
+    path: "/search",
+    element: <Search />,
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

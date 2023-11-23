@@ -43,11 +43,12 @@ export const Header = ({ openModal }) => {
             <input className="searchInput" placeholder="search"></input>
 
             <img
+              className="searchBtn"
               style={{ cursor: "pointer" }}
               src={searchIcon}
               width="34px"
               height="34px"
-              className="searchBtn"
+              onClick={() => navigate("/search", { state: { userid: user } })}
             />
           </div>
 
@@ -60,7 +61,7 @@ export const Header = ({ openModal }) => {
   );
 };
 
-export const SimpleHeader = () => {
+export const ChartHeader = () => {
   const navigate = useNavigate();
   const meses = [
     "Janeiro",

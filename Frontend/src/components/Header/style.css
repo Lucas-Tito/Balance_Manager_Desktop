@@ -1,3 +1,4 @@
+
 .container {
   background: var(--background);
   width: 100%;
@@ -146,3 +147,47 @@
   border: 1px solid #ddd;
   background-color: #f9f9f9;
 }
+
+
+
+
+
+.popup{
+  display: flex;
+
+  background: white;
+  color: black;
+  border-radius: 6px;
+  position: absolute;
+  top: 38%;
+  
+  text-align: center;
+  padding: 10px 15px;
+  visibility: hidden;
+
+  border: 10px;
+  border-color: #0088a9;
+}
+
+.popup-active{
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+  background: white;
+  color: black;
+  border-radius: 6px;
+  position: absolute;
+  
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 10px 15px;
+  visibility: visible;
+  
+  border: 10px;
+  border-color: #0088a9;
+}
+
+
