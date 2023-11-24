@@ -167,6 +167,51 @@ const transactionController = {
         }
     },
 
+
+    complexSearch: async(req, res)=>{
+        try {
+            const userToSearch = req.params.user
+
+            const providedDescription = req.body.description;
+            const providedValue = req.body.value;
+            const providedType = req.body.type; //expense or income
+            const providedCategory = req.body.category;
+            const providedStartDate = req.body.startDate;
+            const providedEndDate = req.body.endDate;
+
+            const searchFilter = { user: userToSearch }
+
+            //checks if an description was provided
+            //if so, the description will be added into the search criteria
+            if (providedDescription) 
+                searchFilter.description = providedDescription
+            
+            if(providedValue != undefined)
+                searchFilter.value = providedValue
+
+            if(providedType)
+                searchFilter.type = providedType
+
+            if(providedCategory)
+                searchFilter.category = providedCategory
+
+            if(providedStartDate && providedEndDate)
+                searchFilter.date = { $gte: providedStartDate, $lte: providedEndDate}
+
+            
+            const transaction = await TransactionModel.find(searchFilter)
+      
+            if (!transaction) {
+              res.status(404).json({ msg: "didn't found any transactions" });
+              return;
+            } 
+      
+            res.json(transaction)
+          } catch (error) {
+            console.log(`error: ${error}`);
+          }
+    },
+
 }
 
 

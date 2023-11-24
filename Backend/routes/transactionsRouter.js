@@ -17,4 +17,6 @@ router.route("/transactions/searchbyDesc/:user").get((req, res)=> transactionCon
 router.route("/transactions/searchbyCate/:user").get((req, res)=> transactionController.searchByCategory(req,res))
 router.route("/transactions/searchbyMonth/:user").get((req, res)=> transactionController.searchByMonth(req,res))
 
+router.route("/transactions/complexSearch/:user").post((req, res)=> transactionController.complexSearch(req,res))
+
 module.exports = router
