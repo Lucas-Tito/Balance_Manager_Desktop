@@ -47,7 +47,6 @@ const Charts = () => {
     fetch(`http://localhost:3000/api/transactions/user/${userid}`)
       .then((response) => response.json())
       .then((data) => {
-        
         const expenseData = data.filter((item) => item.type === "expenses");
         const newData = {
           labels: expenseData.map((item) => item.description),
@@ -71,7 +70,6 @@ const Charts = () => {
     fetch(`http://localhost:3000/api/transactions/user/${userid}`)
       .then((response) => response.json())
       .then((data) => {
-  
         const expenseData = data.filter((item) => item.type === "income");
 
         const newData2 = {
@@ -174,24 +172,69 @@ const Charts = () => {
   const handleChangeMes = (event) => {
     setMesSelecionado(event.target.value);
     let mes = converterMesParaNumero(event.target.value);
+    setShouldRender(false);
     fetch(
       `http://localhost:3000/api/transactions/searchByMonth/${userid}?monthYear=2023-${mes}`
     )
       .then((response) => response.json())
       .then((data) => {
-        const allMonths = Array.from(
-          new Set(data.map((item) => format(new Date(item.createdAt), "yyyy-MMMM")))
+        const uniqueLabelsSet = new Set(
+          data.map((item) => format(new Date(item.createdAt), "yyyy-MMMM"))
         );
+
+        // Convertendo o conjunto de volta para uma matriz
+        const uniqueLabels = Array.from(uniqueLabelsSet);
+        const newData = {
+          labels: uniqueLabels,
+          datasets: [
+            {
+              label: "#",
+              data: data.map((item) => item.value),
+              backgroundColor: data.map((item) =>
+                item.type === "income"
+                  ? "rgba(68, 138, 255, 0.85)"
+                  : "rgba(244, 67, 54, 0.85)"
+              ),
+              borderWidth: 0,
+            },
+          ],
+        };
+        setData(newData);
+        setCategoriaSelecionada("");
+      })
+      .catch((error) => {
+        console.error("Erro ao obter categorias:", error);
+      });
+  };
+  //muda o grafico para a categoria selecionada
+  const handleChangeCategoria = (event) => {
+    setCategoriaSelecionada(event.target.value);
+    setShouldRender(true);
+    fetch(
+      `http://localhost:3000/api/transactions/searchByCate/${userid}?cate=${event.target.value}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const allMonths = Array.from(
+          new Set(
+            data.map((item) => format(new Date(item.createdAt), "yyyy-MMMM"))
+          )
+        );
+
         const sumOfValues = allMonths.map((month) => {
           const valuesForMonth = data
-            .filter((item) => 
-              format(new Date(item.createdAt), "yyyy-MMMM") === month && 
-              item.type === "expenses"
+            .filter(
+              (item) =>
+                format(new Date(item.createdAt), "yyyy-MMMM") === month &&
+                item.type === "expenses"
             )
             .map((item) => item.value);
-  
-          return valuesForMonth.length > 0 ? valuesForMonth.reduce((acc, value) => acc + value) : 0;
+
+          return valuesForMonth.length > 0
+            ? valuesForMonth.reduce((acc, value) => acc + value)
+            : 0;
         });
+
         const newData = {
           labels: allMonths,
           datasets: [
@@ -204,132 +247,53 @@ const Charts = () => {
           ],
         };
         setData(newData);
-        setCategoriaSelecionada("");
+        setMesSelecionado("");
       })
       .catch((error) => {
         console.error("Erro ao obter categorias:", error);
       });
-
-      fetch(
-        `http://localhost:3000/api/transactions/searchByMonth/${userid}?monthYear=2023-${mes}`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          const allMonths = Array.from(
-            new Set(data.map((item) => format(new Date(item.createdAt), "yyyy-MMMM")))
-          );
-          const sumOfValues = allMonths.map((month) => {
-            const valuesForMonth = data
-              .filter((item) => 
-                format(new Date(item.createdAt), "yyyy-MMMM") === month && 
-                item.type === "income"
-              )
-              .map((item) => item.value);
-    
-            return valuesForMonth.length > 0 ? valuesForMonth.reduce((acc, value) => acc + value) : 0;
-          });
-          const newData2 = {
-            labels: allMonths,
-            datasets: [
-              {
-                label: "#",
-                data: sumOfValues,
-                backgroundColor: "rgba(68, 138, 255, 0.85)",
-                borderWidth: 0,
-              },
-            ],
-          };
-          setData2(newData2);
-          setCategoriaSelecionada("");
-        })
-        .catch((error) => {
-          console.error("Erro ao obter categorias:", error);
-        });
-      
-  };
-  //muda o grafico para a categoria selecionada
-  const handleChangeCategoria = (event) => {
-    setCategoriaSelecionada(event.target.value);
     fetch(
       `http://localhost:3000/api/transactions/searchByCate/${userid}?cate=${event.target.value}`
     )
       .then((response) => response.json())
       .then((data) => {
         const allMonths = Array.from(
-          new Set(data.map((item) => format(new Date(item.createdAt), "yyyy-MMMM")))
+          new Set(
+            data.map((item) => format(new Date(item.createdAt), "yyyy-MMMM"))
+          )
         );
-  
+
         const sumOfValues = allMonths.map((month) => {
           const valuesForMonth = data
-            .filter((item) => 
-              format(new Date(item.createdAt), "yyyy-MMMM") === month && 
-              item.type === "expenses"
+            .filter(
+              (item) =>
+                format(new Date(item.createdAt), "yyyy-MMMM") === month &&
+                item.type === "income"
             )
             .map((item) => item.value);
-  
-          return valuesForMonth.length > 0 ? valuesForMonth.reduce((acc, value) => acc + value) : 0;
+
+          return valuesForMonth.length > 0
+            ? valuesForMonth.reduce((acc, value) => acc + value)
+            : 0;
         });
 
-        const newData = {
-          labels: allMonths
-          ,
+        const newData2 = {
+          labels: allMonths,
           datasets: [
             {
               label: "#",
               data: sumOfValues,
-              backgroundColor: data.map((item) =>
-                item.type === "income"
-                  ? "rgba(68, 138, 255, 0.85)"
-                  : "rgba(244, 67, 54, 0.85)"
-              ),
+              backgroundColor: "rgba(68, 138, 255, 0.85)",
               borderWidth: 0,
             },
           ],
         };
-        setData(newData);
+        setData2(newData2);
         setMesSelecionado("");
       })
       .catch((error) => {
         console.error("Erro ao obter categorias:", error);
       });
-      fetch(
-        `http://localhost:3000/api/transactions/searchByCate/${userid}?cate=${event.target.value}`
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          const allMonths = Array.from(
-            new Set(data.map((item) => format(new Date(item.createdAt), "yyyy-MMMM")))
-          );
-    
-          const sumOfValues = allMonths.map((month) => {
-            const valuesForMonth = data
-              .filter((item) => 
-                format(new Date(item.createdAt), "yyyy-MMMM") === month && 
-                item.type === "income"
-              )
-              .map((item) => item.value);
-    
-            return valuesForMonth.length > 0 ? valuesForMonth.reduce((acc, value) => acc + value) : 0;
-          });
-  
-          const newData2 = {
-            labels: allMonths
-            ,
-            datasets: [
-              {
-                label: "#",
-                data: sumOfValues,
-                backgroundColor: "rgba(68, 138, 255, 0.85)",
-                borderWidth: 0,
-              },
-            ],
-          };
-          setData2(newData2);
-          setMesSelecionado("");
-        })
-        .catch((error) => {
-          console.error("Erro ao obter categorias:", error);
-        });
   };
   function handleOpenNewTransactionModalOpen() {
     setIsNewTransactionModalOpen(true);
@@ -340,6 +304,7 @@ const Charts = () => {
   const handleClose = () => {
     handleCloseNewTransactionModalOpen();
   };
+  const [shouldRender, setShouldRender] = useState(true);
   return (
     <>
       <div className="dropdown">
@@ -441,9 +406,9 @@ const Charts = () => {
           </form>
         </div>
       </Modal>
-      <div style={{display:'flex', width: 750, height: 750 }}>
+      <div style={{ display: "flex", width: 750, height: 750 }}>
         <PolarArea data={data} options={options} />
-        <PolarArea data={data2} options={options} />
+        {shouldRender ? <PolarArea data={data2} options={options} /> : null}
       </div>
     </>
   );
