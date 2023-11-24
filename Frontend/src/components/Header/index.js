@@ -16,7 +16,7 @@ export const Header = ({ openModal }) => {
     <>
       <div className="container">
         <div className="dropdown">
-          <button class="dropbtn">
+          <button className="dropbtn">
             <img src={menu_icon} alt="logo" className="menu_icon" />
             <i className="fa fa-caret-down"></i>
           </button>
@@ -87,7 +87,7 @@ export const ChartHeader = () => {
   return (
     <>
       <div className="dropdown">
-        <button class="dropbtn">
+        <button className="dropbtn">
           <img src={menu_icon} alt="logo" className="menu_icon" />
           <i className="fa fa-caret-down"></i>
         </button>

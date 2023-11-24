@@ -30,19 +30,21 @@ export const SearchHeader = ({ isOpen, onRequestClose, title, id })=>{
     const [description, setDescription] = useState("");
     const [value, setValue] = useState(0);
     const [category, setCategory] = useState("");
+    
     const user = useContext(userContext);
   
-    function handleNewTransaction(e) {
+    function handleSearch(e) {
       e.preventDefault();
       const data = {
         description,
         value,
         category,
         type,
-        user,
+        user
       };
   
-      fetch("http://localhost:3000/api/transactions", {
+      console.log(data);
+      fetch(`http://localhost:3000/api/transactions/complexSearch/${user}`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -56,13 +58,15 @@ export const SearchHeader = ({ isOpen, onRequestClose, title, id })=>{
           setType("");
           setValue(0);
           onRequestClose();
+          console.log("sus");
+          console.log(data);
         })
         .catch((err) => console.log(err));
     }
     return(
         <>
             <div className="dropdown">
-                <button class="dropbtn">
+                <button className="dropbtn">
                     <img src={menu_icon} alt="logo" className="menu_icon" />
                     <i className="fa fa-caret-down"></i>
                 </button>
@@ -157,12 +161,14 @@ export const SearchHeader = ({ isOpen, onRequestClose, title, id })=>{
                             // value={}
                             // onChange={(event) => setValue(Number(event.target.value))}
                         />  
-                        <button type="submit" onClick={handleNewTransaction}>
+                        <button type="submit" onClick={handleSearch}>
                             Pesquisar
                         </button>
                     </form>
                 </div>
             </Modal>
+
+
         </>
     )
 }

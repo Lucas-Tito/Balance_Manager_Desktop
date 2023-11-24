@@ -1,11 +1,12 @@
 import { SearchHeader } from "../Header/SearchHeader"
+import { SearchTable } from "./SearchTable"
 
 export const Search = () => {
 
     return(
         <>
             <SearchHeader/>
-            <h1>Hello World</h1>
+            <SearchTable/>
         </>
     )
 

@@ -5,6 +5,7 @@ export const userContext = createContext("");
 export function TransactionsProvider({ children, user }) {
   const [transactions, setTransactions] = useState([]);
 
+  //get all user transactions
   useEffect(() => {
     fetch(`http://localhost:3000/api/transactions/user/${user}`)
       .then((response) => response.json())
