@@ -48,17 +48,14 @@ export const Header = ({ openModal }) => {
         <div className="content">
           <img src={totalIcon} alt="logo" />
 
-          <div className="searchContainer">
-            <input className="searchInput" placeholder="search"></input>
-
+          <div className="searchContainer" onClick={handleSearchClick}>
+            <span>Pesquisar</span>
             <img
-              className="searchBtn"
+              className="searchImg"
               style={{ cursor: "pointer" }}
               src={searchIcon}
               width="34px"
               height="34px"
-              onClick={handleSearchClick}
-              //onClick={() => navigate("/search", { state: { userid: user } })}
             />
           </div>
 
@@ -72,6 +69,7 @@ export const Header = ({ openModal }) => {
             {/* SEARCH MODAL */}
 
       <SearchModal
+        user={user}
         isSearchOpen={isSearchOpen}
         handleIsSearchOpen={handleSearchClick}
       />

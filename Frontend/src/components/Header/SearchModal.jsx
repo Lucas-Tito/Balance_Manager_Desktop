@@ -9,17 +9,18 @@ import "./style.css";
 import incomeIcon from "../../assets/incomeIcon.png";
 import expensesIcon from "../../assets/expensesIcon.png";
 import closeIcon from "../../assets/closeIcon.svg";
+import { TransactionsContext } from "../../TransactionContext";
 import Modal from "react-modal";
 
 
-export const SearchModal = ({isSearchOpen, handleIsSearchOpen}) =>{
+export const SearchModal = ({user, isSearchOpen, handleIsSearchOpen}) =>{
     
     const [searchDescription, setSearchDescription] = useState("");
     const [searchValue, setSearchValue] = useState(0);
     const [searchType, setSearchType] = useState("");
     const [searchCategory, setSearchCategory] = useState("");
 
-    const user = null
+    const {transactions, changeTransactions} = useContext(TransactionsContext);
 
     function handleSearch(e) {
         e.preventDefault();
@@ -28,7 +29,6 @@ export const SearchModal = ({isSearchOpen, handleIsSearchOpen}) =>{
           searchValue,
           searchCategory,
           searchType,
-          user
         };
     
         console.log(data);
@@ -48,6 +48,7 @@ export const SearchModal = ({isSearchOpen, handleIsSearchOpen}) =>{
             handleIsSearchOpen(false);
             console.log("sus");
             console.log(data);
+            changeTransactions(data)
           })
           .catch((err) => console.log(err));
       }
@@ -70,13 +71,13 @@ export const SearchModal = ({isSearchOpen, handleIsSearchOpen}) =>{
                             className="input"
                             placeholder="Titulo"
                             value={searchDescription}
-                            onChange={(event) => setSearchDescription(event.target.searchValue)}
+                            onChange={(event) => setSearchDescription(event.target.value)}
                         />
                         <input
                             className="input"
                             placeholder="Valor"
                             value={searchValue}
-                            onChange={(event) => setSearchValue(Number(event.target.searchValue))}
+                            onChange={(event) => setSearchValue(Number(event.target.value))}
                         />
                         <div className="TransactionTypeCotainer">
                             <button
@@ -100,7 +101,7 @@ export const SearchModal = ({isSearchOpen, handleIsSearchOpen}) =>{
                             className="input"
                             placeholder="Categoria"
                             value={searchCategory}
-                            onChange={(event) => setSearchCategory(event.target.searchValue)}
+                            onChange={(event) => setSearchCategory(event.target.value)}
                         />
 
                         <input
@@ -108,7 +109,7 @@ export const SearchModal = ({isSearchOpen, handleIsSearchOpen}) =>{
                             className="input"
                             placeholder="Valor"
                         // value={}
-                        // onChange={(event) => setSearchValue(Number(event.target.searchValue))}
+                        // onChange={(event) => setSearchValue(Number(event.target.value))}
                         />
                         <button type="submit" onClick={handleSearch}>
                             Pesquisar
