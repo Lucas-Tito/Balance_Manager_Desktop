@@ -24,14 +24,7 @@ export const SearchModal = ({user, isSearchOpen, handleIsSearchOpen}) =>{
     }
     function handleSearch(e) {
         e.preventDefault();
-
-        //if startDate provided and endDate isn't
-        if(startDate && !endDate){
-           //for some reason the sets for the states aren't working here
-           //reason: aparrently, setState isn't syncronous
-           //so by the time it sets the state, the fetch is already processed
-        }
-
+        
         const data = {
           searchDescription,
           searchValue,

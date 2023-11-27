@@ -4,7 +4,7 @@ import "./style.css";
 import incomeIcon from "../../assets/incomeIcon.png";
 import expensesIcon from "../../assets/expensesIcon.png";
 import closeIcon from "../../assets/closeIcon.svg";
-import { userContext } from "../../TransactionContext";
+import { TransactionsContext, userContext } from "../../TransactionContext";
 
 export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
   const [type, setType] = useState("");
@@ -12,6 +12,7 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
   const [value, setValue] = useState(0);
   const [category, setCategory] = useState("");
   const user = useContext(userContext);
+  const {refreshTransaction} = useContext(TransactionsContext);
 
   function handleNewTransaction(e) {
     e.preventDefault();
@@ -37,6 +38,7 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
         setType("");
         setValue(0);
         onRequestClose();
+        refreshTransaction()
       })
       .catch((err) => console.log(err));
   }

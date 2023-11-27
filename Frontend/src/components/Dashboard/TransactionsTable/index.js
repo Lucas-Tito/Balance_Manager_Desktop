@@ -47,7 +47,10 @@ export const TransactionsTable = () => {
       },
     })
       .then((response) => response.json())
-      .then((transactions) => console.log(transactions));
+      .then((transactions) => {
+        console.log(transactions)
+        refreshTransaction()
+      });
 
     handleCloseNewTransactionModalOpen();
   }
@@ -56,12 +59,16 @@ export const TransactionsTable = () => {
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then((transactions) => console.log(transactions));
+      .then((transactions) => {
+        console.log(transactions)
+        refreshTransaction()
+      });
   }
 
   function handleCloseNewTransactionModalOpen() {
     setIsNewTransactionModalOpen(false);
   }
+
 
   return (
     <>
@@ -127,7 +134,7 @@ export const TransactionsTable = () => {
                     </button>
                     <button
                       className="btn-acoes"
-                      onClick={() => deleteTransaction(test._id)}
+                      onClick={()=>deleteTransaction(test._id)}
                     >
                       Deletar
                     </button>
