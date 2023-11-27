@@ -12,6 +12,22 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
   const [value, setValue] = useState(0);
   const [category, setCategory] = useState("");
   const user = useContext(userContext);
+  const [categorias, setCategorias] = useState(); //É o array de custom categories
+
+  //preenche o select
+  useEffect(() => {
+    if (!categorias) {
+      // Verifica se categorias é undefined
+      fetch(`http://localhost:3000/api/users/categories/${user}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setCategorias(data.custom_categories);
+        })
+        .catch((error) => {
+          console.error("Erro ao obter categorias:", error);
+        });
+    }
+  }, []);
 
   function handleNewTransaction(e) {
     e.preventDefault();
@@ -84,12 +100,24 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
               <span>Saída</span>
             </button>
           </div>
-          <input
-            className="input"
-            placeholder="Categoria"
+          <select
+            className="input custom-select"
             value={category}
             onChange={(event) => setCategory(event.target.value)}
-          />
+          >
+            <option value="">Selecione uma categoria</option>
+            {categorias && categorias.length > 0 ? (
+              categorias.map((categoria, index) => (
+                <option key={index} value={categoria}>
+                  {categoria}
+                </option>
+              ))
+            ) : (
+              <option value="" disabled>
+                Nenhuma categoria encontrada
+              </option>
+            )}
+          </select>
           <button type="submit" onClick={handleNewTransaction}>
             Cadastrar
           </button>
