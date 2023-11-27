@@ -188,7 +188,7 @@ const Charts = () => {
           labels: uniqueLabels,
           datasets: [
             {
-              label: "#",
+              label: data.map((item) => item.description),
               data: data.map((item) => item.value),
               backgroundColor: data.map((item) =>
                 item.type === "income"
