@@ -4,14 +4,15 @@ import "./style.css";
 import incomeIcon from "../../assets/incomeIcon.png";
 import expensesIcon from "../../assets/expensesIcon.png";
 import closeIcon from "../../assets/closeIcon.svg";
-import { userContext } from "../../TransactionContext";
+import { TransactionsContext, userContext } from "../../TransactionContext";
 
 export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(null);
   const [category, setCategory] = useState("");
   const user = useContext(userContext);
+<<<<<<< HEAD
   const [categorias, setCategorias] = useState(); //É o array de custom categories
 
   //preenche o select
@@ -28,6 +29,9 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
         });
     }
   }, []);
+=======
+  const {refreshTransaction} = useContext(TransactionsContext);
+>>>>>>> 2ed255f2ad74bfddd4984c61feb3fcb1d50b2e9e
 
   function handleNewTransaction(e) {
     e.preventDefault();
@@ -51,8 +55,9 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
         setDescription("");
         setCategory("");
         setType("");
-        setValue(0);
+        setValue(null);
         onRequestClose();
+        refreshTransaction()
       })
       .catch((err) => console.log(err));
   }

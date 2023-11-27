@@ -1,10 +1,5 @@
-import totalIcon from "../../assets/totalIcon.png";
-import menu_icon from "../../assets/menu_icon.svg";
-import searchIcon from "../../assets/search.png";
 import "./../Header/style.css";
-import { useNavigate } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
-import { userContext } from "../../TransactionContext";
+import React, { useContext, useState } from "react";
 import "./style.css";
 import incomeIcon from "../../assets/incomeIcon.png";
 import expensesIcon from "../../assets/expensesIcon.png";
@@ -16,19 +11,27 @@ import Modal from "react-modal";
 export const SearchModal = ({user, isSearchOpen, handleIsSearchOpen}) =>{
     
     const [searchDescription, setSearchDescription] = useState("");
-    const [searchValue, setSearchValue] = useState(0);
+    const [searchValue, setSearchValue] = useState(null);
     const [searchType, setSearchType] = useState("");
     const [searchCategory, setSearchCategory] = useState("");
+    const [startDate, setStartDate] = useState("")
+    const [endDate, setEndDate] = useState("")
 
-    const {transactions, changeTransactions} = useContext(TransactionsContext);
+    const {changeTransactions} = useContext(TransactionsContext);
 
+    function aa(){
+        setEndDate(new Date())
+    }
     function handleSearch(e) {
         e.preventDefault();
+        
         const data = {
           searchDescription,
           searchValue,
           searchCategory,
           searchType,
+          startDate,
+          endDate
         };
     
         console.log(data);
@@ -44,10 +47,14 @@ export const SearchModal = ({user, isSearchOpen, handleIsSearchOpen}) =>{
             setSearchDescription("");
             setSearchCategory("");
             setSearchType("");
-            setSearchValue(0);
+            setSearchValue(null);
+            setStartDate("")
+            setEndDate("")
             handleIsSearchOpen(false);
-            console.log("sus");
+            
             console.log(data);
+            //function that change the table transaction
+            //it changes the transactionContext that the table consumes
             changeTransactions(data)
           })
           .catch((err) => console.log(err));
@@ -104,12 +111,22 @@ export const SearchModal = ({user, isSearchOpen, handleIsSearchOpen}) =>{
                             onChange={(event) => setSearchCategory(event.target.value)}
                         />
 
+                        <span className="date_span">Data de Início</span>
                         <input
                             type="date"
                             className="input"
                             placeholder="Valor"
-                        // value={}
-                        // onChange={(event) => setSearchValue(Number(event.target.value))}
+                            value={startDate}
+                            onChange={(event) => setStartDate(event.target.value)}
+                        />
+
+                        <span className="date_span">Data Final</span>
+                        <input
+                            type="date"
+                            className="input"
+                            placeholder="Valor"
+                            value={endDate}
+                            onChange={(event) => setEndDate(event.target.value)}
                         />
                         <button type="submit" onClick={handleSearch}>
                             Pesquisar
