@@ -184,16 +184,16 @@ const transactionController = {
             //checks if an description was provided
             //if so, the description will be added into the search criteria
             if (providedDescription) 
-                searchFilter.description = providedDescription
+                searchFilter.description = {$regex: providedDescription}
             
             if(providedValue != undefined && providedValue != 0)
-                searchFilter.value = providedValue
+                searchFilter.value = {$regex: providedValue}
 
             if(providedType)
                 searchFilter.type = providedType
 
             if(providedCategory)
-                searchFilter.category = providedCategory
+                searchFilter.category = {$regex: providedCategory}
 
             if(providedStartDate){
                 if(!providedEndDate){
