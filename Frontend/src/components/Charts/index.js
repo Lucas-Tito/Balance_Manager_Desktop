@@ -173,6 +173,7 @@ const Charts = () => {
     setMesSelecionado(event.target.value);
     let mes = converterMesParaNumero(event.target.value);
     setShouldRender(false);
+
     fetch(
       `http://localhost:3000/api/transactions/searchByMonth/${userid}?monthYear=2023-${mes}`
     )
@@ -180,6 +181,16 @@ const Charts = () => {
       .then((data) => {
         const uniqueLabelsSet = new Set(
           data.map((item) => format(new Date(item.createdAt), "yyyy-MMMM"))
+        );
+        // Filtrar os dados por tipo
+        const incomes = data.filter((item) => item.type === "income");
+        const expenses = data.filter((item) => item.type === "expenses");
+
+        // Calcular a soma dos valores para cada tipo
+        const sumOfIncomes = incomes.reduce((sum, item) => sum + item.value, 0);
+        const sumOfExpenses = expenses.reduce(
+          (sum, item) => sum + item.value,
+          0
         );
 
         // Convertendo o conjunto de volta para uma matriz
@@ -189,16 +200,17 @@ const Charts = () => {
           datasets: [
             {
               label: data.map((item) => item.description),
-              data: data.map((item) => item.value),
-              backgroundColor: data.map((item) =>
-                item.type === "income"
-                  ? "rgba(68, 138, 255, 0.85)"
-                  : "rgba(244, 67, 54, 0.85)"
-              ),
+              data: [sumOfIncomes, sumOfExpenses],
+              backgroundColor: [
+                "rgba(68, 138, 255, 0.85)",
+                "rgba(244, 67, 54, 0.85)",
+              ], // Cores para incomes e expenses
+
               borderWidth: 0,
             },
           ],
         };
+
         setData(newData);
         setCategoriaSelecionada("");
       })
@@ -329,7 +341,12 @@ const Charts = () => {
             <label htmlFor="mes" style={{ color: "white" }}>
               Filtrar por mês:
             </label>
-            <select id="mes" value={mesSelecionado} onChange={handleChangeMes}>
+            <select
+              className="input custom-select"
+              id="mes"
+              value={mesSelecionado}
+              onChange={handleChangeMes}
+            >
               <option value="">Selecione um mês</option>
               {meses.map((mes, index) => (
                 <option key={index} value={mes}>
@@ -350,6 +367,7 @@ const Charts = () => {
               Filtrar por categoria:
             </label>
             <select
+              className="input custom-select"
               id="categoria"
               value={categoriaSelecionada}
               onChange={handleChangeCategoria}
