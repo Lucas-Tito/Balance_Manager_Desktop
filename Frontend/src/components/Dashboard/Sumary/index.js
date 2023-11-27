@@ -9,7 +9,7 @@ import { Steps } from 'intro.js-react';
 import {useState} from 'react';
 
 export const Sumary = () => {
-  const transactions = useContext(TransactionsContext);
+  const {transactions, changeTransactions} = useContext(TransactionsContext);
 
   const sumary = transactions.reduce(
     (acc, transactions) => {

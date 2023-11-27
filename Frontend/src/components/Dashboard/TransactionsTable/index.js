@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./style.css";
 import Modal from "react-modal";
-
 import { TransactionsContext, userContext } from "../../../TransactionContext";
+import refreshIcon from "../../../assets/refresh_icon.svg";
 import incomeIcon from "../../../assets/incomeIcon.png";
 import expensesIcon from "../../../assets/expensesIcon.png";
 import closeIcon from "../../../assets/closeIcon.svg";
 
 export const TransactionsTable = () => {
-  const data = useContext(TransactionsContext);
+  const {transactions, refreshTransaction} = useContext(TransactionsContext);
 
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
@@ -47,7 +47,7 @@ export const TransactionsTable = () => {
       },
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((transactions) => console.log(transactions));
 
     handleCloseNewTransactionModalOpen();
   }
@@ -56,7 +56,7 @@ export const TransactionsTable = () => {
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((transactions) => console.log(transactions));
   }
 
   function handleCloseNewTransactionModalOpen() {
@@ -73,11 +73,23 @@ export const TransactionsTable = () => {
               <th>Valor</th>
               <th>Categoria</th>
               <th>Data</th>
-              <th>Ações</th>
+              <th id="acoes">
+                <span>Ações</span>
+                <div className="refreshContainer" onClick={refreshTransaction}>              
+                  <img
+                    className="refreshImg"
+                    style={{ cursor: "pointer" }}
+                    src={refreshIcon}
+                    width="28px"
+                    height="28px"
+                  />
+                </div>
+
+              </th>
             </tr>
           </thead>
           <tbody>
-            {data.map((test, key) => {
+            {transactions.map((test, key) => {
               return (
                 <tr key={key}>
                   <td>{test.description}</td>

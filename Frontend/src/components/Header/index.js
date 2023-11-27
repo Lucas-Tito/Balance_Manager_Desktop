@@ -7,10 +7,18 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { userContext } from "../../TransactionContext";
 import Modal from "react-modal";
+import { SearchModal } from "./SearchModal";
 
 export const Header = ({ openModal }) => {
   const navigate = useNavigate();
   const user = useContext(userContext);
+
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const handleSearchClick = () => {
+      //toggle search popup
+      setIsSearchOpen(!isSearchOpen)
+  }
 
   return (
     <>
@@ -40,16 +48,14 @@ export const Header = ({ openModal }) => {
         <div className="content">
           <img src={totalIcon} alt="logo" />
 
-          <div className="searchContainer">
-            <input className="searchInput" placeholder="search"></input>
-
+          <div className="searchContainer" onClick={handleSearchClick}>
+            <span>Pesquisar</span>
             <img
-              className="searchBtn"
+              className="searchImg"
               style={{ cursor: "pointer" }}
               src={searchIcon}
               width="34px"
               height="34px"
-              onClick={() => navigate("/search", { state: { userid: user } })}
             />
           </div>
 
@@ -58,9 +64,25 @@ export const Header = ({ openModal }) => {
           </button>
         </div>
       </div>
+
+
+            {/* SEARCH MODAL */}
+
+      <SearchModal
+        user={user}
+        isSearchOpen={isSearchOpen}
+        handleIsSearchOpen={handleSearchClick}
+      />
     </>
   );
 };
+
+
+
+
+
+
+
 
 export const ChartHeader = () => {
   const navigate = useNavigate();

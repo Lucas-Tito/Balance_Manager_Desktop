@@ -172,13 +172,13 @@ const transactionController = {
         try {
             const userToSearch = req.params.user
 
-            const providedDescription = req.body.description;
-            const providedValue = req.body.value;
-            const providedType = req.body.type; //expense or income
-            const providedCategory = req.body.category;
-            const providedStartDate = req.body.startDate;
-            const providedEndDate = req.body.endDate;
-
+            const providedDescription = req.body.searchDescription;
+            const providedValue = req.body.searchValue;
+            const providedType = req.body.searchType; //expense or income
+            const providedCategory = req.body.searchCategory;
+            const providedStartDate = req.body.searchStartDate;
+            const providedEndDate = req.body.searchEndDate;
+            
             const searchFilter = { user: userToSearch }
 
             //checks if an description was provided
@@ -186,7 +186,7 @@ const transactionController = {
             if (providedDescription) 
                 searchFilter.description = providedDescription
             
-            if(providedValue != undefined)
+            if(providedValue != undefined && providedValue != 0)
                 searchFilter.value = providedValue
 
             if(providedType)
@@ -199,6 +199,7 @@ const transactionController = {
                 searchFilter.date = { $gte: providedStartDate, $lte: providedEndDate}
 
             
+            console.log(searchFilter);
             const transaction = await TransactionModel.find(searchFilter)
       
             if (!transaction) {
