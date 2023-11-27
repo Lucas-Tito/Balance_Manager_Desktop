@@ -176,8 +176,8 @@ const transactionController = {
             const providedValue = req.body.searchValue;
             const providedType = req.body.searchType; //expense or income
             const providedCategory = req.body.searchCategory;
-            const providedStartDate = req.body.searchStartDate;
-            const providedEndDate = req.body.searchEndDate;
+            const providedStartDate = req.body.startDate;
+            const providedEndDate = req.body.endDate;
             
             const searchFilter = { user: userToSearch }
 
@@ -195,8 +195,14 @@ const transactionController = {
             if(providedCategory)
                 searchFilter.category = providedCategory
 
-            if(providedStartDate && providedEndDate)
-                searchFilter.date = { $gte: providedStartDate, $lte: providedEndDate}
+            if(providedStartDate){
+                if(!providedEndDate){
+                    searchFilter.createdAt = { $gte: providedStartDate, $lte: new Date()}
+                }
+                else
+                    searchFilter.createdAt = { $gte: providedStartDate, $lte: providedEndDate}
+            }
+                
 
             
             console.log(searchFilter);
