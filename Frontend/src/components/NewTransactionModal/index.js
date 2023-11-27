@@ -12,7 +12,6 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
   const [value, setValue] = useState(null);
   const [category, setCategory] = useState("");
   const user = useContext(userContext);
-<<<<<<< HEAD
   const [categorias, setCategorias] = useState(); //É o array de custom categories
 
   //preenche o select
@@ -29,9 +28,7 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
         });
     }
   }, []);
-=======
-  const {refreshTransaction} = useContext(TransactionsContext);
->>>>>>> 2ed255f2ad74bfddd4984c61feb3fcb1d50b2e9e
+  const { refreshTransaction } = useContext(TransactionsContext);
 
   function handleNewTransaction(e) {
     e.preventDefault();
@@ -57,7 +54,7 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
         setType("");
         setValue(null);
         onRequestClose();
-        refreshTransaction()
+        refreshTransaction();
       })
       .catch((err) => console.log(err));
   }
