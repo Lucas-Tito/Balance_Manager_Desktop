@@ -9,7 +9,7 @@ import { TransactionsContext, userContext } from "../../TransactionContext";
 export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(null);
   const [category, setCategory] = useState("");
   const user = useContext(userContext);
   const {refreshTransaction} = useContext(TransactionsContext);
@@ -36,7 +36,7 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
         setDescription("");
         setCategory("");
         setType("");
-        setValue(0);
+        setValue(null);
         onRequestClose();
         refreshTransaction()
       })

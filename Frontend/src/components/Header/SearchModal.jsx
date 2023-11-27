@@ -11,7 +11,7 @@ import Modal from "react-modal";
 export const SearchModal = ({user, isSearchOpen, handleIsSearchOpen}) =>{
     
     const [searchDescription, setSearchDescription] = useState("");
-    const [searchValue, setSearchValue] = useState(0);
+    const [searchValue, setSearchValue] = useState(null);
     const [searchType, setSearchType] = useState("");
     const [searchCategory, setSearchCategory] = useState("");
     const [startDate, setStartDate] = useState("")
@@ -47,7 +47,7 @@ export const SearchModal = ({user, isSearchOpen, handleIsSearchOpen}) =>{
             setSearchDescription("");
             setSearchCategory("");
             setSearchType("");
-            setSearchValue(0);
+            setSearchValue(null);
             setStartDate("")
             setEndDate("")
             handleIsSearchOpen(false);
