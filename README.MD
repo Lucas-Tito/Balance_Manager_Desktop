@@ -5,7 +5,7 @@
 </h4>  
   
 ### How to run (Tito)
-If the program doesn't run, you probably need to run $ npm i inside the Frontend folder
+If the program doesn't run, you probably need to run $ npm i inside the Backend and the Frontend folder
 <br>
 Futhermore, these were the libraries installed:
 <br>
