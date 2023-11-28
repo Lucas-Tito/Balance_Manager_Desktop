@@ -57,7 +57,7 @@ export default function SignupCard() {
     return (
         <div id="cardRoot">
             <div className="card">
-                <h2>Accueillir!</h2>
+                <h2>Bem vindo!</h2>
                 <h1>Registro</h1>
 
                 <form onSubmit={handleSubmit}>
@@ -73,7 +73,7 @@ export default function SignupCard() {
                     </div>
 
                     <div className="inputBox">
-                        <span>Nom</span>
+                        <span>Nome</span>
                         <input
                             name="name"
                             type="text"
@@ -84,7 +84,7 @@ export default function SignupCard() {
                     </div>
 
                     <div className="inputBox">
-                        <span>Mot de passe</span>
+                        <span>Senha</span>
                         <input
                             name="password"
                             type="password"

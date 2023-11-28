@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Chart, RadialLinearScale, ArcElement, Title, Tooltip } from "chart.js";
-import { PolarArea } from "react-chartjs-2";
+import { PolarArea, Doughnut } from "react-chartjs-2";
 import { TransactionsContext } from "../../TransactionContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
@@ -8,6 +8,8 @@ import totalIcon from "../../assets/totalIcon.png";
 import menu_icon from "../../assets/menu_icon.svg";
 import closeIcon from "../../assets/closeIcon.svg";
 import Modal from "react-modal";
+import DoughnutChart from "./DoughnutChart";
+import "./style.css"
 
 Chart.register(RadialLinearScale, ArcElement, Title, Tooltip);
 
@@ -20,18 +22,21 @@ const Charts = () => {
     userid = location.state.userid;
   }
 
-  const [data, setData] = useState({
+  const [expenseData, setExpenseData] = useState({
+    //labels that represents each bar from chart
     labels: [],
     datasets: [
       {
+        //this label show up when hovering the mouse the bar representing the data
         label: "#",
+        //value of each bar
         data: [],
         backgroundColor: [],
         borderWidth: 0,
       },
     ],
   });
-  const [data2, setData2] = useState({
+  const [incomeData, setIncomeData] = useState({
     labels: [],
     datasets: [
       {
@@ -43,6 +48,12 @@ const Charts = () => {
     ],
   });
 
+  /**
+   * get all expense transactions
+   * the only filter being applied is the category
+   * instead of getAll, backend should have an route to get an array that constains objects
+   * each object will represent an category, and the total sum of the expenser or income for the category
+   */
   useEffect(() => {
     fetch(`http://localhost:3000/api/transactions/user/${userid}`)
       .then((response) => response.json())
@@ -54,18 +65,25 @@ const Charts = () => {
             {
               label: "#",
               data: expenseData.map((item) => item.value),
-              backgroundColor: "rgba(244, 67, 54, 0.85)",
+              backgroundColor: [
+              "rgba(75,192,192,1)",
+              "#ecf0f1",
+              "#50AF95",
+              "#f3ba2f",
+              "#2a71d0",
+            ],
               borderWidth: 0,
             },
           ],
         };
 
-        setData(newData);
+        setExpenseData(newData);
       })
       .catch((error) => {
         console.error("Erro ao obter transações:", error);
       });
   }, []);
+
   useEffect(() => {
     fetch(`http://localhost:3000/api/transactions/user/${userid}`)
       .then((response) => response.json())
@@ -78,18 +96,26 @@ const Charts = () => {
             {
               label: "#",
               data: expenseData.map((item) => item.value),
-              backgroundColor: "rgba(68, 138, 255, 0.85)",
+              backgroundColor: [
+                "rgba(75,192,192,1)",
+                "#ecf0f1",
+                "#50AF95",
+                "#f3ba2f",
+                "#2a71d0",
+              ],
               borderWidth: 0,
             },
           ],
         };
 
-        setData2(newData2);
+        setIncomeData(newData2);
       })
       .catch((error) => {
         console.error("Erro ao obter transações:", error);
       });
   }, []);
+
+  //options is related to the chart's style
   let options = {
     responsive: true,
     scales: {
@@ -123,6 +149,7 @@ const Charts = () => {
       },
     },
   };
+
   const navigate = useNavigate();
   //const user = useContext(userContext);
   const [categorias, setCategorias] = useState(); //É o array de custom categories
@@ -199,7 +226,7 @@ const Charts = () => {
             },
           ],
         };
-        setData(newData);
+        setExpenseData(newData);
         setCategoriaSelecionada("");
       })
       .catch((error) => {
@@ -246,7 +273,7 @@ const Charts = () => {
             },
           ],
         };
-        setData(newData);
+        setExpenseData(newData);
         setMesSelecionado("");
       })
       .catch((error) => {
@@ -288,7 +315,7 @@ const Charts = () => {
             },
           ],
         };
-        setData2(newData2);
+        setIncomeData(newData2);
         setMesSelecionado("");
       })
       .catch((error) => {
@@ -305,6 +332,8 @@ const Charts = () => {
     handleCloseNewTransactionModalOpen();
   };
   const [shouldRender, setShouldRender] = useState(true);
+
+
   return (
     <>
       <div className="dropdown">
@@ -322,6 +351,9 @@ const Charts = () => {
           }
         </div>
       </div>
+
+
+
       <div className="containerSimple">
         <div className="contentSimple">
           <img src={totalIcon} alt="logo" />
@@ -379,6 +411,9 @@ const Charts = () => {
           </button>
         </div>
       </div>
+
+
+
       <Modal
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleCloseNewTransactionModalOpen}
@@ -406,9 +441,18 @@ const Charts = () => {
           </form>
         </div>
       </Modal>
-      <div style={{ display: "flex", width: 750, height: 750 }}>
-        <PolarArea data={data} options={options} />
-        {shouldRender ? <PolarArea data={data2} options={options} /> : null}
+
+
+      
+      <div className="chart_div" style={{ width: 500, height: 500 }}>
+        <div className="single_chart">
+          <h1>Entrada</h1>
+          <DoughnutChart data={expenseData} options={options} />
+        </div>
+        <div className="single_chart">
+        <h1>Saída</h1>
+        {shouldRender ? <DoughnutChart data={incomeData} options={options} /> : null}
+        </div>
       </div>
     </>
   );
