@@ -1,5 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Chart, RadialLinearScale, ArcElement, Title, Tooltip } from "chart.js/auto";
+import {
+  Chart,
+  RadialLinearScale,
+  ArcElement,
+  Title,
+  Tooltip,
+} from "chart.js/auto";
 import { PolarArea, Doughnut } from "react-chartjs-2";
 import { TransactionsContext } from "../../TransactionContext";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,7 +15,7 @@ import menu_icon from "../../assets/menu_icon.svg";
 import closeIcon from "../../assets/closeIcon.svg";
 import Modal from "react-modal";
 import DoughnutChart from "./DoughnutChart";
-import "./style.css"
+import "./style.css";
 
 Chart.register(RadialLinearScale, ArcElement, Title, Tooltip);
 
@@ -53,7 +59,9 @@ const Charts = () => {
    * Those two first useEffects are for the initial two charts that appear
    */
   useEffect(() => {
-    fetch(`http://localhost:3000/api/transactions/sumup/category/${userid}?type=income`)
+    fetch(
+      `http://localhost:3000/api/transactions/sumup/category/${userid}?type=income`
+    )
       .then((response) => response.json())
       .then((data) => {
         const incomeData = data;
@@ -65,12 +73,12 @@ const Charts = () => {
               label: incomeData.map((item) => item.category),
               data: incomeData.map((item) => item.sum),
               backgroundColor: [
-              "rgba(75,192,192,1)",
-              "#ecf0f1",
-              "#50AF95",
-              "#f3ba2f",
-              "#2a71d0",
-            ],
+                "rgba(75,192,192,1)",
+                "#4CAF50",
+                "#3498db",
+                "#e67e22",
+                "#9b59b6",
+              ],
               borderWidth: 0,
             },
           ],
@@ -83,9 +91,10 @@ const Charts = () => {
       });
   }, []);
 
-
   useEffect(() => {
-    fetch(`http://localhost:3000/api/transactions/sumup/category/${userid}?type=expenses`)
+    fetch(
+      `http://localhost:3000/api/transactions/sumup/category/${userid}?type=expenses`
+    )
       .then((response) => response.json())
       .then((data) => {
         const expenseData = data;
@@ -97,11 +106,11 @@ const Charts = () => {
               label: expenseData.map((item) => item.category),
               data: expenseData.map((item) => item.sum),
               backgroundColor: [
-                "rgba(75,192,192,1)",
-                "#ecf0f1",
-                "#50AF95",
-                "#f3ba2f",
-                "#2a71d0",
+                "rgba(244, 67, 54, 0.85)",
+                "#b00c0c",
+                "#630404",
+                "#f76868",
+                "#cc4949",
               ],
               borderWidth: 0,
             },
@@ -279,7 +288,13 @@ const Charts = () => {
             {
               label: "#",
               data: sumOfValues,
-              backgroundColor: "rgba(244, 67, 54, 0.85)",
+              backgroundColor: [
+                "rgba(244, 67, 54, 0.85)",
+                "#b00c0c",
+                "#630404",
+                "#f76868",
+                "#cc4949",
+              ],
               borderWidth: 0,
             },
           ],
@@ -321,7 +336,13 @@ const Charts = () => {
             {
               label: "#",
               data: sumOfValues,
-              backgroundColor: "rgba(68, 138, 255, 0.85)",
+              backgroundColor: [
+                "rgba(75,192,192,1)",
+                "#4CAF50",
+                "#3498db",
+                "#e67e22",
+                "#9b59b6",
+              ],
               borderWidth: 0,
             },
           ],
@@ -343,7 +364,9 @@ const Charts = () => {
     handleCloseNewTransactionModalOpen();
   };
   const [shouldRender, setShouldRender] = useState(true);
-
+  const handleRefresh = () => {
+    window.location.reload();
+  };
 
   return (
     <>
@@ -362,8 +385,6 @@ const Charts = () => {
           }
         </div>
       </div>
-
-
 
       <div className="containerSimple">
         <div className="contentSimple">
@@ -429,8 +450,6 @@ const Charts = () => {
         </div>
       </div>
 
-
-
       <Modal
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleCloseNewTransactionModalOpen}
@@ -459,17 +478,20 @@ const Charts = () => {
         </div>
       </Modal>
 
-
-      
       <div className="chart_div" style={{ width: 500, height: 500 }}>
         <div className="single_chart">
           <h1>Entrada</h1>
           <DoughnutChart data={incomeData} options={options} />
         </div>
         <div className="single_chart">
-        <h1>Saída</h1>
-        {shouldRender ? <DoughnutChart data={expenseData} options={options} /> : null}
+          <h1>Saída</h1>
+          {shouldRender ? (
+            <DoughnutChart data={expenseData} options={options} />
+          ) : null}
         </div>
+        <button className="button_refresh" onClick={handleRefresh}>
+          Refresh
+        </button>
       </div>
     </>
   );
