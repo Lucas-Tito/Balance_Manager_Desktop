@@ -19,4 +19,6 @@ router.route("/transactions/searchbyMonth/:user").get((req, res)=> transactionCo
 
 router.route("/transactions/complexSearch/:user").post((req, res)=> transactionController.complexSearch(req,res))
 
+router.route("/transactions/sumup/category/:user").get((req, res) => transactionController.sumUpByCategory(req, res))
+
 module.exports = router

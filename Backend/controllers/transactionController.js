@@ -219,6 +219,41 @@ const transactionController = {
           }
     },
 
+    sumUpByCategory: async(req, res) =>{
+        try {
+            const user = req.params.user
+            const typeFilter= req.query.type
+            const transactions = await TransactionModel.find({user:user, type:typeFilter})
+
+            //stores sum of values for each category
+            const sumUp = {}
+
+            transactions.forEach(item => {
+                const {category, value} = item
+
+                //checks if the category already exists on sumUp object
+                if(sumUp[category]){
+                    sumUp[category] += value
+                }
+                else{
+                    //if it doesn't, a new entry with the current value is created
+                    sumUp[category] = value
+                }
+            })
+
+            //create new array with unique categories and it's sum values
+            const newArray = Object.keys(sumUp).map(category => ({
+                category,
+                sum: sumUp[category],
+            }))
+
+            res.json(newArray)
+
+        } catch (error) {
+            console.log(`error: ${error}`);
+        }
+    },
+
 }
 
 
