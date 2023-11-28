@@ -5,7 +5,9 @@
 </h4>  
   
 ### How to run (Tito)
-in addition to basic react procedures, you have to run the following commands to run this version of the code:
+If the program doesn't run, you probably need to run $ npm i inside the Frontend folder
+<br>
+Futhermore, these were the libraries installed:
 <br>
 $ npm install intro.js-react
 <br>
