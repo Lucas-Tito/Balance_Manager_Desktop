@@ -5,7 +5,9 @@
 </h4>  
   
 ### How to run (Tito)
-in addition to basic react procedures, you have to run the following commands to run this version of the code:
+If the program doesn't run, you probably need to run $ npm i inside the Backend and the Frontend folder
+<br>
+Futhermore, these were the libraries installed:
 <br>
 $ npm install intro.js-react
 <br>
@@ -26,14 +28,14 @@ $ npm install react-chartjs-2
 + RF4 ✔️
 + RF5 ✔️
 + RF6 ✔️
-+ RF9
++ RF9 ✔️
 + RF10
 + RF11
 
 ### Importantes
 
 + RF7 ✔️
-+ RF12
++ RF12✔️
 
 
 ### Desejáveis
