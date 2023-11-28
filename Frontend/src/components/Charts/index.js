@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Chart, RadialLinearScale, ArcElement, Title, Tooltip } from "chart.js";
+import { Chart, RadialLinearScale, ArcElement, Title, Tooltip } from "chart.js/auto";
 import { PolarArea, Doughnut } from "react-chartjs-2";
 import { TransactionsContext } from "../../TransactionContext";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -36,6 +36,7 @@ const Charts = () => {
       },
     ],
   });
+
   const [incomeData, setIncomeData] = useState({
     labels: [],
     datasets: [
@@ -49,22 +50,20 @@ const Charts = () => {
   });
 
   /**
-   * get all expense transactions
-   * the only filter being applied is the category
-   * instead of getAll, backend should have an route to get an array that constains objects
-   * each object will represent an category, and the total sum of the expenser or income for the category
+   * Those two first useEffects are for the initial two charts that appear
    */
   useEffect(() => {
-    fetch(`http://localhost:3000/api/transactions/user/${userid}`)
+    fetch(`http://localhost:3000/api/transactions/sumup/category/${userid}?type=income`)
       .then((response) => response.json())
       .then((data) => {
-        const expenseData = data.filter((item) => item.type === "expenses");
+        const incomeData = data;
+
         const newData = {
-          labels: expenseData.map((item) => item.description),
+          labels: incomeData.map((item) => item.category),
           datasets: [
             {
-              label: "#",
-              data: expenseData.map((item) => item.value),
+              label: incomeData.map((item) => item.category),
+              data: incomeData.map((item) => item.sum),
               backgroundColor: [
               "rgba(75,192,192,1)",
               "#ecf0f1",
@@ -77,25 +76,26 @@ const Charts = () => {
           ],
         };
 
-        setExpenseData(newData);
+        setIncomeData(newData);
       })
       .catch((error) => {
         console.error("Erro ao obter transações:", error);
       });
   }, []);
 
+
   useEffect(() => {
-    fetch(`http://localhost:3000/api/transactions/user/${userid}`)
+    fetch(`http://localhost:3000/api/transactions/sumup/category/${userid}?type=expenses`)
       .then((response) => response.json())
       .then((data) => {
-        const expenseData = data.filter((item) => item.type === "income");
+        const expenseData = data;
 
         const newData2 = {
-          labels: expenseData.map((item) => item.description),
+          labels: expenseData.map((item) => item.category),
           datasets: [
             {
-              label: "#",
-              data: expenseData.map((item) => item.value),
+              label: expenseData.map((item) => item.category),
+              data: expenseData.map((item) => item.sum),
               backgroundColor: [
                 "rgba(75,192,192,1)",
                 "#ecf0f1",
@@ -108,7 +108,7 @@ const Charts = () => {
           ],
         };
 
-        setIncomeData(newData2);
+        setExpenseData(newData2);
       })
       .catch((error) => {
         console.error("Erro ao obter transações:", error);
@@ -464,11 +464,11 @@ const Charts = () => {
       <div className="chart_div" style={{ width: 500, height: 500 }}>
         <div className="single_chart">
           <h1>Entrada</h1>
-          <DoughnutChart data={expenseData} options={options} />
+          <DoughnutChart data={incomeData} options={options} />
         </div>
         <div className="single_chart">
         <h1>Saída</h1>
-        {shouldRender ? <DoughnutChart data={incomeData} options={options} /> : null}
+        {shouldRender ? <DoughnutChart data={expenseData} options={options} /> : null}
         </div>
       </div>
     </>
