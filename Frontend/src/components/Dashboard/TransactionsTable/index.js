@@ -8,7 +8,7 @@ import expensesIcon from "../../../assets/expensesIcon.png";
 import closeIcon from "../../../assets/closeIcon.svg";
 
 export const TransactionsTable = () => {
-  const {transactions, refreshTransaction} = useContext(TransactionsContext);
+  const { transactions, refreshTransaction } = useContext(TransactionsContext);
 
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
@@ -17,6 +17,23 @@ export const TransactionsTable = () => {
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] =
     useState(false);
   const [id, setId] = useState("62342chda");
+  const user = useContext(userContext);
+  const [categorias, setCategorias] = useState(); //É o array de custom categories
+
+  //preenche o select
+  useEffect(() => {
+    if (!categorias) {
+      // Verifica se categorias é undefined
+      fetch(`http://localhost:3000/api/users/categories/${user}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setCategorias(data.custom_categories);
+        })
+        .catch((error) => {
+          console.error("Erro ao obter categorias:", error);
+        });
+    }
+  }, []);
 
   function handleOpenNewTransactionModalOpen(key) {
     setIsNewTransactionModalOpen(true);
@@ -48,8 +65,8 @@ export const TransactionsTable = () => {
     })
       .then((response) => response.json())
       .then((transactions) => {
-        console.log(transactions)
-        refreshTransaction()
+        console.log(transactions);
+        refreshTransaction();
       });
 
     handleCloseNewTransactionModalOpen();
@@ -60,15 +77,14 @@ export const TransactionsTable = () => {
     })
       .then((response) => response.json())
       .then((transactions) => {
-        console.log(transactions)
-        refreshTransaction()
+        console.log(transactions);
+        refreshTransaction();
       });
   }
 
   function handleCloseNewTransactionModalOpen() {
     setIsNewTransactionModalOpen(false);
   }
-
 
   return (
     <>
@@ -82,7 +98,7 @@ export const TransactionsTable = () => {
               <th>Data</th>
               <th id="acoes">
                 <span>Ações</span>
-                <div className="refreshContainer" onClick={refreshTransaction}>              
+                <div className="refreshContainer" onClick={refreshTransaction}>
                   <img
                     className="refreshImg"
                     style={{ cursor: "pointer" }}
@@ -91,7 +107,6 @@ export const TransactionsTable = () => {
                     height="28px"
                   />
                 </div>
-
               </th>
             </tr>
           </thead>
@@ -134,7 +149,7 @@ export const TransactionsTable = () => {
                     </button>
                     <button
                       className="btn-acoes"
-                      onClick={()=>deleteTransaction(test._id)}
+                      onClick={() => deleteTransaction(test._id)}
                     >
                       Deletar
                     </button>
@@ -189,12 +204,24 @@ export const TransactionsTable = () => {
                   <span>Saída</span>
                 </button>
               </div>
-              <input
-                className="input"
-                placeholder="Categoria"
+              <select
+                className="input custom-select"
                 value={category}
                 onChange={(event) => setCategory(event.target.value)}
-              />
+              >
+                <option value="">Selecione uma categoria</option>
+                {categorias && categorias.length > 0 ? (
+                  categorias.map((categoria, index) => (
+                    <option key={index} value={categoria}>
+                      {categoria}
+                    </option>
+                  ))
+                ) : (
+                  <option value="" disabled>
+                    Nenhuma categoria encontrada
+                  </option>
+                )}
+              </select>
               <button type="button" className="buttonTest" onClick={update}>
                 Salvar
               </button>
