@@ -296,7 +296,7 @@ const Charts = () => {
           labels: allMonths,
           datasets: [
             {
-              label: allMonths,
+              label: event.target.value,
               data: sumOfValues,
               backgroundColor: [
                 "rgba(244, 67, 54, 0.85)",
@@ -344,7 +344,7 @@ const Charts = () => {
           labels: allMonths,
           datasets: [
             {
-              label: allMonths,
+              label: event.target.value,
               data: sumOfValues,
               backgroundColor: [
                 "rgba(75,192,192,1)",
@@ -379,6 +379,7 @@ const Charts = () => {
   };
   const [shouldRender, setShouldRender] = useState(true);
   const handleRefresh = () => {
+    setShowMonthChart(false)
     window.location.reload();
   };
 
@@ -498,7 +499,7 @@ const Charts = () => {
                */}
 
         
-          {showMonthChart ? (
+      {showMonthChart ? (
 
         <div className="chart_div" style={{ width: 500, height: 500 }}>
           <div className="single_chart">
@@ -509,26 +510,30 @@ const Charts = () => {
             <h1>Saída</h1>
             {shouldRender ? <BarChart data={expenseData} options={options} /> : null}
           </div>
+          <button className="button_refresh" onClick={handleRefresh}>
+              Refresh
+          </button>
         </div>
 
-          ) : (
+      ) : (
 
-          <div className="chart_div" style={{ width: 500, height: 500 }}>
-            <div className="single_chart">
-              <h1>Entrada</h1>
-              <DoughnutChart data={incomeData} options={options} />
-            </div>
-            <div className="single_chart">
-              <h1>Saída</h1>
-              {shouldRender ? <DoughnutChart data={expenseData} options={options} /> : null}
-            </div>
+        <div className="chart_div" style={{ width: 500, height: 500 }}>
+          <div className="single_chart">
+            <h1>Entrada</h1>
+            <DoughnutChart data={incomeData} options={options} />
           </div>
+          <div className="single_chart">
+            <h1>Saída</h1>
+            {shouldRender ? <DoughnutChart data={expenseData} options={options} /> : null}
+          </div>
+            <button className="button_refresh" onClick={handleRefresh}>
+              Refresh
+            </button>
+        </div>
 
-          )}
+      )}
 
-      <button className="button_refresh" onClick={handleRefresh}>
-        Refresh
-      </button>
+      
     </>
   );
 };
