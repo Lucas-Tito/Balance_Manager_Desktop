@@ -15,5 +15,8 @@ router.route("/users/:id").put((req, res)=> userController.update(req,res))
 
 router.route("/users/login").post((req, res)=> userController.login(req,res))
 
+router.route("/users/categories/:id").get((req, res) => userController.getAllUserCategories(req, res))
+
+router.route("/users/categories/:id").put((req, res) =>userController.addCategory(req, res))
 
 module.exports = router

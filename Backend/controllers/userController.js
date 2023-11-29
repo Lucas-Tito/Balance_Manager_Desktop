@@ -9,9 +9,16 @@ const userController = {
         password: req.body.password,
       };
 
+      const user_search = await UserModel.findOne({ email: user.email });
+
+      if (user_search) {
+        res.status(404).json({ msg: "exists" });
+        return;
+      }
+
       const response = await UserModel.create(user);
 
-      res.status(201).json({ response, msg: "User created successfully" });
+      res.status(201).json({ response, msg: "success" });
     } catch (error) {
       console.log(`error: ${error}`);
     }
@@ -90,7 +97,7 @@ const userController = {
         return;
       }
 
-      res.status(200).json({ msg: "ok", user: String(user._id) });
+      res.status(200).json({ msg: "ok", user: user._id.toString() });
     } catch (error) {
       console.log(`error: ${error}`);
     }
@@ -105,6 +112,52 @@ const userController = {
       console.log(`error: ${error}`);
     }
   },
+
+
+  getAllUserCategories: async(req, res) =>{
+    try {
+        const id = req.params.id;
+        const categories = await UserModel.findById(id, 'custom_categories');
+        
+        //checks if id is null
+        if (!categories) {
+          res.status(404).json({ msg: "didn't found any users" })
+          return
+        }   
+        
+        res.json(categories)
+
+    } catch (error) {
+        console.log(`error: ${error}`);
+    }
+},
+
+
+
+  addcreateCategory: async (req, res) => {
+    try {
+      const id = req.params.id;
+      const previousCategories = await UserModel.findById(id, 'custom_categories')
+      const categoryToAdd = req.body.categoryToAdd
+      const arrayIndex = previousCategories.custom_categories.length;
+
+      const updatedUser = await UserModel.findByIdAndUpdate(id, { $set: { [`custom_categories.${arrayIndex}`]: categoryToAdd } });
+      
+
+      //checks if id is null
+      if (!updatedUser) {
+        res.status(404).json({ msg: "user not found" });
+        return;
+      }
+
+      res.status(200).json({ updatedUser, msg: "user updated successfully" });
+    } catch (error) {
+      console.log(`error: ${error}`);
+    }
+  },
+
 };
+
+
 
 module.exports = userController;

@@ -6,28 +6,38 @@ import Login from "./routes/Login";
 import reportWebVitals from "./reportWebVitals";
 
 //configuring router
-import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SignupCard from "./components/Login/Signup";
+import Charts from "./components/Charts";
+import { Search } from "./components/Search/Search";
 
 const router = createBrowserRouter([
   {
-    path:"/",
-    element:<Login/>
+    path: "/",
+    element: <Login />,
   },
   {
-    path:"/register",
-    element:<SignupCard/>
+    path: "/register",
+    element: <SignupCard />,
   },
   {
-    path:"/home",
-    element: <App/>
+    path: "/home",
+    element: <App />,
+  },
+  {
+    path: "/chart",
+    element: <Charts />,
+  },
+  {
+    path: "/search",
+    element: <Search />,
   }
-])
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

@@ -88,6 +88,7 @@ button{
     color: white;
     font-size: 0.7em;
     border: 0;
+    cursor: pointer;
 }
 
 .createAccount{

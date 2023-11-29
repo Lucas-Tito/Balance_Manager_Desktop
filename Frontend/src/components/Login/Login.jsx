@@ -49,7 +49,7 @@ export default function LoginCard() {
   return (
     <div id="cardRoot">
       <div className="card">
-        <h2>Accueillir!</h2>
+        <h2>Bem vindo!</h2>
         <h1>Login</h1>
 
         <form onSubmit={handleSubmit}>
@@ -66,7 +66,7 @@ export default function LoginCard() {
           </div>
 
           <div className="inputBox">
-            <span>Mot de passe</span>
+            <span>Senha</span>
             <input
               name="password"
               type="password"
@@ -80,10 +80,10 @@ export default function LoginCard() {
           <div className="bottomInputs">
             <div className="loginCheckbox">
               <input type="checkbox" />
-              <span>Remember me</span>
+              <span>Lembrar login</span>
             </div>
 
-            <button>Forgot Password?</button>
+            <button>Esqueceu a senha?</button>
           </div>
 
           <button className="submitButton">Logar</button>

@@ -1,0 +1,453 @@
+{
+	"info": {
+		"_postman_id": "ab367a03-571e-4f5c-bc87-6171b1da0607",
+		"name": "balancemanager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28193577",
+		"_collection_link": "https://gold-moon-899799.postman.co/workspace/balancemanager_PI~f241f87c-b962-4fd1-b9de-39156c721171/collection/28193577-ab367a03-571e-4f5c-bc87-6171b1da0607?action=share&source=collection_link&creator=28193577"
+	},
+	"item": [
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "GETALL_transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/transactions/user/65173d3737c6297e6b1dadb8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transactions",
+								"user",
+								"65173d3737c6297e6b1dadb8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE_transactions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"Aluguel\",\r\n    \"value\":400,\r\n    \"type\":\"expenses\",\r\n    \"category\":\"Casa\",\r\n    \"user\":\"65209d404d0e12e478ac7b8e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET_transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/transactions/6515abfa605edf9e087ce239",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transactions",
+								"6515abfa605edf9e087ce239"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH_byDescription_transactions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/transactions/searchByDesc/653fe6f300cf0567291ad1be?desc=teste",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transactions",
+								"searchByDesc",
+								"653fe6f300cf0567291ad1be"
+							],
+							"query": [
+								{
+									"key": "desc",
+									"value": "teste"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH_byCategory_transactions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/transactions/searchByCate/653fe6f300cf0567291ad1be?cate=comida",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transactions",
+								"searchByCate",
+								"653fe6f300cf0567291ad1be"
+							],
+							"query": [
+								{
+									"key": "cate",
+									"value": "comida"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SEARCH_byMonth_transactions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/transactions/searchByMonth/653fe6f300cf0567291ad1be?monthYear=2023-11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transactions",
+								"searchByMonth",
+								"653fe6f300cf0567291ad1be"
+							],
+							"query": [
+								{
+									"key": "monthYear",
+									"value": "2023-11"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE_transactions",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/transactions/652f2601765b32292837f2bc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transactions",
+								"652f2601765b32292837f2bc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE_transaction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\":\"pão doce\",\r\n    \"value\":\"12.5\",\r\n    \"type\":\"income\",\r\n    \"category\":\"nao sei\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/transactions/651c6cecb583051dc1965478",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transactions",
+								"651c6cecb583051dc1965478"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "GETALL_users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE_users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"garibaldo@sus.amogus\",\r\n    \"nome\":\"Garibaldo\",\r\n    \"senha\":\"garibaldodelas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET_users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/65173d0937c6297e6b1dadb2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"65173d0937c6297e6b1dadb2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET_user_categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/categories/65476e639189e58920cdda91",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"categories",
+								"65476e639189e58920cdda91"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE_users",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/users/65173d0937c6297e6b1dadb2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"65173d0937c6297e6b1dadb2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE_users",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"garibaldo@sus.amogus\",\r\n    \"nome\":\"Garibaldo\",\r\n    \"senha\":\"garibaldodelas123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/65173d3737c6297e6b1dadb8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"65173d3737c6297e6b1dadb8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addCategory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryToAdd\":\"comida\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/categories/65476e639189e58920cdda91",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"categories",
+								"65476e639189e58920cdda91"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"lucas@gmail.com\",\r\n    \"password\":\"lucas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

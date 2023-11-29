@@ -4,14 +4,31 @@ import "./style.css";
 import incomeIcon from "../../assets/incomeIcon.png";
 import expensesIcon from "../../assets/expensesIcon.png";
 import closeIcon from "../../assets/closeIcon.svg";
-import { userContext } from "../../TransactionContext";
+import { TransactionsContext, userContext } from "../../TransactionContext";
 
 export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
   const [type, setType] = useState("");
   const [description, setDescription] = useState("");
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(null);
   const [category, setCategory] = useState("");
   const user = useContext(userContext);
+  const [categorias, setCategorias] = useState(); //É o array de custom categories
+
+  //preenche o select
+  useEffect(() => {
+    if (!categorias) {
+      // Verifica se categorias é undefined
+      fetch(`http://localhost:3000/api/users/categories/${user}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setCategorias(data.custom_categories);
+        })
+        .catch((error) => {
+          console.error("Erro ao obter categorias:", error);
+        });
+    }
+  }, []);
+  const { refreshTransaction } = useContext(TransactionsContext);
 
   function handleNewTransaction(e) {
     e.preventDefault();
@@ -35,8 +52,9 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
         setDescription("");
         setCategory("");
         setType("");
-        setValue(0);
+        setValue(null);
         onRequestClose();
+        refreshTransaction();
       })
       .catch((err) => console.log(err));
   }
@@ -84,12 +102,24 @@ export const NewTransactionModal = ({ isOpen, onRequestClose, title, id }) => {
               <span>Saída</span>
             </button>
           </div>
-          <input
-            className="input"
-            placeholder="Categoria"
+          <select
+            className="input custom-select"
             value={category}
             onChange={(event) => setCategory(event.target.value)}
-          />
+          >
+            <option value="">Selecione uma categoria</option>
+            {categorias && categorias.length > 0 ? (
+              categorias.map((categoria, index) => (
+                <option key={index} value={categoria}>
+                  {categoria}
+                </option>
+              ))
+            ) : (
+              <option value="" disabled>
+                Nenhuma categoria encontrada
+              </option>
+            )}
+          </select>
           <button type="submit" onClick={handleNewTransaction}>
             Cadastrar
           </button>

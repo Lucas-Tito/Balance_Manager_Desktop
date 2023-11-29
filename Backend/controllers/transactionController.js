@@ -104,7 +104,155 @@ const transactionController = {
         } catch (error) {
             console.log(`error: ${error}`);
         }
-    }
+    },
+
+
+    searchByDescription: async(req, res)=>{
+        try {
+            const userToSearch = req.params.user
+            const descriptionToSearch = req.query.desc
+            //regex is used to achieve the result of an LIKE operator
+            const transaction = await TransactionModel.find({description: {$regex: descriptionToSearch}, user:userToSearch})
+
+            //checks if id is null
+            if (!transaction) {
+                res.status(404).json({ msg: "didn't found any transactions" })
+                return
+            }   
+
+            res.json(transaction)
+        } catch (error) {
+            console.log(`error: ${error}`);
+        }
+    },
+
+    searchByCategory: async(req, res)=>{
+        try {
+            const userToSearch = req.params.user
+            const categoryToSearch = req.query.cate
+            //regex is used to achieve the result of an LIKE operator
+            const transaction = await TransactionModel.find({category: {$regex: categoryToSearch}, user:userToSearch})
+
+            //checks if id is null
+            if (!transaction) {
+                res.status(404).json({ msg: "didn't found any transactions" })
+                return
+            }   
+
+            res.json(transaction)
+        } catch (error) {
+            console.log(`error: ${error}`);
+        }
+    },
+
+    searchByMonth: async(req, res)=>{
+        try {
+            const userToSearch = req.params.user
+            //gets month and year from query in the format (Y-M)
+            const monthNYearToSearch = req.query.monthYear
+
+            //search for a transction that has a date on the specified month and year
+            const transaction = await TransactionModel.find({createdAt: {$gte: new Date(`${monthNYearToSearch}-1`), 
+            $lt: new Date(`${monthNYearToSearch}-31`)}, user:userToSearch})
+
+            //checks if id is null
+            if (!transaction) {
+                res.status(404).json({ msg: "didn't found any transactions" })
+                return
+            }   
+
+            res.json(transaction)
+        } catch (error) {
+            console.log(`error: ${error}`);
+        }
+    },
+
+
+    complexSearch: async(req, res)=>{
+        try {
+            const userToSearch = req.params.user
+
+            const providedDescription = req.body.searchDescription;
+            const providedValue = req.body.searchValue;
+            const providedType = req.body.searchType; //expense or income
+            const providedCategory = req.body.searchCategory;
+            const providedStartDate = req.body.startDate;
+            const providedEndDate = req.body.endDate;
+            
+            const searchFilter = { user: userToSearch }
+
+            //checks if an description was provided
+            //if so, the description will be added into the search criteria
+            if (providedDescription) 
+                searchFilter.description = {$regex: providedDescription}
+            
+            if(providedValue != undefined && providedValue != 0)
+                searchFilter.value = providedValue
+
+            if(providedType)
+                searchFilter.type = providedType
+
+            if(providedCategory)
+                searchFilter.category = {$regex: providedCategory}
+
+            if(providedStartDate){
+                if(!providedEndDate){
+                    searchFilter.createdAt = { $gte: providedStartDate, $lte: new Date()}
+                }
+                else
+                    searchFilter.createdAt = { $gte: providedStartDate, $lte: providedEndDate}
+            }
+                
+
+            
+            console.log(searchFilter);
+            const transaction = await TransactionModel.find(searchFilter)
+      
+            if (!transaction) {
+              res.status(404).json({ msg: "didn't found any transactions" });
+              return;
+            } 
+      
+            res.json(transaction)
+          } catch (error) {
+            console.log(`error: ${error}`);
+          }
+    },
+
+    sumUpByCategory: async(req, res) =>{
+        try {
+            const user = req.params.user
+            const typeFilter= req.query.type
+            const transactions = await TransactionModel.find({user:user, type:typeFilter})
+
+            //stores sum of values for each category
+            const sumUp = {}
+
+            transactions.forEach(item => {
+                const {category, value} = item
+
+                //checks if the category already exists on sumUp object
+                if(sumUp[category]){
+                    sumUp[category] += value
+                }
+                else{
+                    //if it doesn't, a new entry with the current value is created
+                    sumUp[category] = value
+                }
+            })
+
+            //create new array with unique categories and it's sum values
+            const newArray = Object.keys(sumUp).map(category => ({
+                category,
+                sum: sumUp[category],
+            }))
+
+            res.json(newArray)
+
+        } catch (error) {
+            console.log(`error: ${error}`);
+        }
+    },
 
 }
 
