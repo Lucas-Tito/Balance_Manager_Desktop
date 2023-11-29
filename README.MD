@@ -29,8 +29,8 @@ $ npm install react-chartjs-2
 + RF5 ✔️
 + RF6 ✔️
 + RF9 ✔️
-+ RF10
-+ RF11
++ RF10✔️
++ RF11✔️
 
 ### Importantes
 
