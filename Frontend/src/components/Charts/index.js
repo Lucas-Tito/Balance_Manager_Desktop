@@ -215,7 +215,7 @@ const Charts = () => {
     console.log("amongus");
 
     setShouldRender(false);
-    setShowMonthChart(false)
+    setShowMonthChart(false);
 
     fetch(
       `http://localhost:3000/api/transactions/searchByMonth/${userid}?monthYear=2023-${mes}`
@@ -243,7 +243,7 @@ const Charts = () => {
           labels: uniqueLabels,
           datasets: [
             {
-              label: data.map((item) => item.description),
+              label: "#",
               data: [sumOfIncomes, sumOfExpenses],
               backgroundColor: [
                 "rgba(68, 138, 255, 0.85)",
@@ -262,14 +262,11 @@ const Charts = () => {
       });
   };
 
-
-
-
   //muda o grafico para a categoria selecionada
   const handleChangeCategoria = (event) => {
     setCategoriaSelecionada(event.target.value);
     setShouldRender(true);
-    setShowMonthChart(true)
+    setShowMonthChart(true);
     fetch(
       `http://localhost:3000/api/transactions/searchByCate/${userid}?cate=${event.target.value}`
     )
@@ -342,7 +339,7 @@ const Charts = () => {
             ? valuesForMonth.reduce((acc, value) => acc + value)
             : 0;
         });
-        
+
         const newData2 = {
           labels: allMonths,
           datasets: [
@@ -367,9 +364,6 @@ const Charts = () => {
         console.error("Erro ao obter categorias:", error);
       });
   };
-
-
-
 
   function handleOpenNewTransactionModalOpen() {
     setIsNewTransactionModalOpen(true);
@@ -495,14 +489,12 @@ const Charts = () => {
         </div>
       </Modal>
 
-              {/**CHART SECTION
-               * if ShowMonthChart is true, the bar chart of month will be shown
-               * else, the doughnut chart will be the one in display 
-               */}
+      {/**CHART SECTION
+       * if ShowMonthChart is true, the bar chart of month will be shown
+       * else, the doughnut chart will be the one in display
+       */}
 
-        
-          {showMonthChart ? (
-
+      {showMonthChart ? (
         <div className="chart_div" style={{ width: 500, height: 500 }}>
           <div className="single_chart">
             <h1>Entrada</h1>
@@ -510,24 +502,25 @@ const Charts = () => {
           </div>
           <div className="single_chart">
             <h1>Saída</h1>
-            {shouldRender ? <BarChart data={expenseData} options={options} /> : null}
+            {shouldRender ? (
+              <BarChart data={expenseData} options={options} />
+            ) : null}
           </div>
         </div>
-
-          ) : (
-
-          <div className="chart_div" style={{ width: 500, height: 500 }}>
-            <div className="single_chart">
-              <h1>Entrada</h1>
-              <DoughnutChart data={incomeData} options={options} />
-            </div>
-            <div className="single_chart">
-              <h1>Saída</h1>
-              {shouldRender ? <DoughnutChart data={expenseData} options={options} /> : null}
-            </div>
+      ) : (
+        <div className="chart_div" style={{ width: 500, height: 500 }}>
+          <div className="single_chart">
+            <h1>Entrada</h1>
+            <DoughnutChart data={incomeData} options={options} />
           </div>
-
-          )}
+          <div className="single_chart">
+            <h1>Saída</h1>
+            {shouldRender ? (
+              <DoughnutChart data={expenseData} options={options} />
+            ) : null}
+          </div>
+        </div>
+      )}
 
       <button className="button_refresh" onClick={handleRefresh}>
         Refresh
