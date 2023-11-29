@@ -16,6 +16,7 @@ import closeIcon from "../../assets/closeIcon.svg";
 import Modal from "react-modal";
 import DoughnutChart from "./DoughnutChart";
 import "./style.css";
+import BarChart from "./BarChart";
 
 Chart.register(RadialLinearScale, ArcElement, Title, Tooltip);
 
@@ -23,6 +24,9 @@ const Charts = () => {
   const [transactions, setTransactions] = useState();
   const location = useLocation();
   let userid = "";
+
+  //Month chart will appear when you filter by category
+  const [showMonthChart, setShowMonthChart] = useState(false);
 
   if (location.state) {
     userid = location.state.userid;
@@ -211,6 +215,7 @@ const Charts = () => {
     console.log("amongus");
 
     setShouldRender(false);
+    setShowMonthChart(false)
 
     fetch(
       `http://localhost:3000/api/transactions/searchByMonth/${userid}?monthYear=2023-${mes}`
@@ -256,10 +261,15 @@ const Charts = () => {
         console.error("Erro ao obter categorias:", error);
       });
   };
+
+
+
+
   //muda o grafico para a categoria selecionada
   const handleChangeCategoria = (event) => {
     setCategoriaSelecionada(event.target.value);
     setShouldRender(true);
+    setShowMonthChart(true)
     fetch(
       `http://localhost:3000/api/transactions/searchByCate/${userid}?cate=${event.target.value}`
     )
@@ -289,7 +299,7 @@ const Charts = () => {
           labels: allMonths,
           datasets: [
             {
-              label: "#",
+              label: allMonths,
               data: sumOfValues,
               backgroundColor: [
                 "rgba(244, 67, 54, 0.85)",
@@ -332,12 +342,12 @@ const Charts = () => {
             ? valuesForMonth.reduce((acc, value) => acc + value)
             : 0;
         });
-
+        
         const newData2 = {
           labels: allMonths,
           datasets: [
             {
-              label: "#",
+              label: allMonths,
               data: sumOfValues,
               backgroundColor: [
                 "rgba(75,192,192,1)",
@@ -357,6 +367,10 @@ const Charts = () => {
         console.error("Erro ao obter categorias:", error);
       });
   };
+
+
+
+
   function handleOpenNewTransactionModalOpen() {
     setIsNewTransactionModalOpen(true);
   }
@@ -481,21 +495,43 @@ const Charts = () => {
         </div>
       </Modal>
 
-      <div className="chart_div" style={{ width: 500, height: 500 }}>
-        <div className="single_chart">
-          <h1>Entrada</h1>
-          <DoughnutChart data={incomeData} options={options} />
+              {/**CHART SECTION
+               * if ShowMonthChart is true, the bar chart of month will be shown
+               * else, the doughnut chart will be the one in display 
+               */}
+
+        
+          {showMonthChart ? (
+
+        <div className="chart_div" style={{ width: 500, height: 500 }}>
+          <div className="single_chart">
+            <h1>Entrada</h1>
+            <BarChart data={incomeData} options={options} />
+          </div>
+          <div className="single_chart">
+            <h1>Saída</h1>
+            {shouldRender ? <BarChart data={expenseData} options={options} /> : null}
+          </div>
         </div>
-        <div className="single_chart">
-          <h1>Saída</h1>
-          {shouldRender ? (
-            <DoughnutChart data={expenseData} options={options} />
-          ) : null}
-        </div>
-        <button className="button_refresh" onClick={handleRefresh}>
-          Refresh
-        </button>
-      </div>
+
+          ) : (
+
+          <div className="chart_div" style={{ width: 500, height: 500 }}>
+            <div className="single_chart">
+              <h1>Entrada</h1>
+              <DoughnutChart data={incomeData} options={options} />
+            </div>
+            <div className="single_chart">
+              <h1>Saída</h1>
+              {shouldRender ? <DoughnutChart data={expenseData} options={options} /> : null}
+            </div>
+          </div>
+
+          )}
+
+      <button className="button_refresh" onClick={handleRefresh}>
+        Refresh
+      </button>
     </>
   );
 };
