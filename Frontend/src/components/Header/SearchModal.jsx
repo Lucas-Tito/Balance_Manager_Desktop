@@ -79,6 +79,7 @@ export const SearchModal = ({ user, isSearchOpen, handleIsSearchOpen }) => {
     <>
       <Modal
         isOpen={isSearchOpen}
+        onRequestClose={handleIsSearchOpen}
         overlayClassName="react-modal-overlay"
         className="react-modal-content"
       >

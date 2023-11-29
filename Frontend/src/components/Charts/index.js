@@ -212,8 +212,10 @@ const Charts = () => {
   const handleChangeMes = (event) => {
     setMesSelecionado(event.target.value);
     let mes = converterMesParaNumero(event.target.value);
+    console.log("amongus");
+
     setShouldRender(false);
-    setShowMonthChart(false)
+    setShowMonthChart(false);
 
     fetch(
       `http://localhost:3000/api/transactions/searchByMonth/${userid}?monthYear=2023-${mes}`
@@ -233,6 +235,7 @@ const Charts = () => {
           (sum, item) => sum + item.value,
           0
         );
+        console.log(sumOfIncomes);
 
         // Convertendo o conjunto de volta para uma matriz
         const uniqueLabels = Array.from(uniqueLabelsSet);
@@ -240,7 +243,7 @@ const Charts = () => {
           labels: uniqueLabels,
           datasets: [
             {
-              label: data.map((item) => item.description),
+              label: "#",
               data: [sumOfIncomes, sumOfExpenses],
               backgroundColor: [
                 "rgba(68, 138, 255, 0.85)",
@@ -251,7 +254,7 @@ const Charts = () => {
             },
           ],
         };
-        setExpenseData(newData);
+        setIncomeData(newData);
         setCategoriaSelecionada("");
       })
       .catch((error) => {
@@ -259,14 +262,11 @@ const Charts = () => {
       });
   };
 
-
-
-
   //muda o grafico para a categoria selecionada
   const handleChangeCategoria = (event) => {
     setCategoriaSelecionada(event.target.value);
     setShouldRender(true);
-    setShowMonthChart(true)
+    setShowMonthChart(true);
     fetch(
       `http://localhost:3000/api/transactions/searchByCate/${userid}?cate=${event.target.value}`
     )
@@ -291,7 +291,7 @@ const Charts = () => {
             ? valuesForMonth.reduce((acc, value) => acc + value)
             : 0;
         });
-
+        console.log(sumOfValues);
         const newData = {
           labels: allMonths,
           datasets: [
@@ -339,7 +339,7 @@ const Charts = () => {
             ? valuesForMonth.reduce((acc, value) => acc + value)
             : 0;
         });
-        
+
         const newData2 = {
           labels: allMonths,
           datasets: [
@@ -364,9 +364,6 @@ const Charts = () => {
         console.error("Erro ao obter categorias:", error);
       });
   };
-
-
-
 
   function handleOpenNewTransactionModalOpen() {
     setIsNewTransactionModalOpen(true);
@@ -508,7 +505,9 @@ const Charts = () => {
           </div>
           <div className="single_chart">
             <h1>Saída</h1>
-            {shouldRender ? <BarChart data={expenseData} options={options} /> : null}
+            {shouldRender ? (
+              <BarChart data={expenseData} options={options} />
+            ) : null}
           </div>
           <button className="button_refresh" onClick={handleRefresh}>
               Refresh
