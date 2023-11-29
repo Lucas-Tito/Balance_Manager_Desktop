@@ -187,7 +187,7 @@ const transactionController = {
                 searchFilter.description = {$regex: providedDescription}
             
             if(providedValue != undefined && providedValue != 0)
-                searchFilter.value = {$regex: providedValue}
+                searchFilter.value = providedValue
 
             if(providedType)
                 searchFilter.type = providedType
