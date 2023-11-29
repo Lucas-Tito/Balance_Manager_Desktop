@@ -208,6 +208,8 @@ const Charts = () => {
   const handleChangeMes = (event) => {
     setMesSelecionado(event.target.value);
     let mes = converterMesParaNumero(event.target.value);
+    console.log("amongus");
+
     setShouldRender(false);
 
     fetch(
@@ -228,6 +230,7 @@ const Charts = () => {
           (sum, item) => sum + item.value,
           0
         );
+        console.log(sumOfIncomes);
 
         // Convertendo o conjunto de volta para uma matriz
         const uniqueLabels = Array.from(uniqueLabelsSet);
@@ -246,7 +249,7 @@ const Charts = () => {
             },
           ],
         };
-        setExpenseData(newData);
+        setIncomeData(newData);
         setCategoriaSelecionada("");
       })
       .catch((error) => {
@@ -281,7 +284,7 @@ const Charts = () => {
             ? valuesForMonth.reduce((acc, value) => acc + value)
             : 0;
         });
-
+        console.log(sumOfValues);
         const newData = {
           labels: allMonths,
           datasets: [
