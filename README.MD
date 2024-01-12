@@ -16,6 +16,8 @@ $ npm install chart.js
 $ npm install react-chartjs-2 
 <br><br><br><br><br><br>
 
+![Balance Manager Desktop](https://github.com/Lucas-Tito/Restaurant-LandingPage-ReactJs/assets/61806906/b0c9d827-7166-4611-8343-a2f4f67785aa)
+
 <h2 align="center">
   Checklist de Requisitos ✔️
 </h2>
