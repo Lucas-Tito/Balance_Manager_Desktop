@@ -10,7 +10,7 @@
 
 <p align="center">
   This software aims to help small businesses on visualizing and organizing its expenses. 
-  Also, the developmentwent through a whole planning process and has very rich documentation, 
+  Also, the development went through a whole planning process and has very rich documentation, 
   from prototyping to requirements gathering. You can checkout all the documentation 
   <a href= "https://github.com/Lucas-Tito/Balance_Manager_Desktop/tree/master/Documents"> here </a>
 </p>
